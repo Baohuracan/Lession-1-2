@@ -26,7 +26,7 @@ Quá trình biên dịch của Compiler trải qua 4 bước như sau:
 
  Đầu tiên file chúng ta code sẽ được lưu dưới dạng file.c / file.cpp
 
- Sau đó trình biên dịch xóa bỏ comment sẽ xử lý các chỉ thị tiền xử lý ( preprocessor directives ) như #include, '#define', '#if' và các macro khác thành một tệp  file.i
+ Sau đó trình biên dịch xóa bỏ comment sẽ xử lý các chỉ thị tiền xử lý ( preprocessor directives ) như #include, `#define`, `#if` và các macro khác thành một tệp  file.i
  
  Tệp này bao gồm mã nguồn đã được mở rộng và các chỉ thị tiền xử lý đã được xử lý.
 
@@ -106,38 +106,38 @@ Quá trình biên dịch của Compiler trải qua 4 bước như sau:
 
 Để định nghĩa macro chúng ta dùng cú pháp như sau:
 
-	'#define' Tên_macro  giá_trị_hoặc_đoạn_mã
+	`#define Tên_macro  giá_trị_hoặc_đoạn_mã`
 
 Các loại macro gồm:
 
  Macro có tham số: Có thể nhận tham số và thực hiện thao tác trên những tham số đó.
 
-	'#define SQUARE(x) ((x) * (x))'
+	`#define SQUARE(x) ((x) * (x))`
 
  Macro không tham số: Định nghĩa một giá trị cố định
 
-	'#define PI 3.14159'
+	`#define PI 3.14159`
 
  Để loại bỏ macro ta sử dụng #undef
 	
 
-'#if'
+`#if`
 
 -  Nếu điều kiện này đúng thì thực hiện đoạn mã phía dưới.
   
-'#elif'
+`#elif`
 
 -  Được sử dụng sau #if hoặc #elif để kiểm tra điều khiện thêm nếu điều kiện trước sai.
   
-'#else'
+`#else`
 
 - Nếu không có điều kiện nào trước đó đúng thì sẽ thực hiện các câu lệnh sau #else.
   
-'#ifdef'
+`#ifdef`
 
 - Dùng để kiểm tra xem macro đã được định nghĩa hay chưa.
   
-'#ifndef'
+`#ifndef`
 
 - Dùng để kiểm tra xem macro chưa được định nghĩa.
 
@@ -159,17 +159,17 @@ Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến 
 	
 	- Dùng để khai báo 1 biến kiểu dữ liệu lưu trữ thông tin của danh sách đối số biến đổi
 
-	- Cú pháp: 'va_list args;'
+	- Cú pháp: `va_list args;`
 	
 2. Va_start()
 	
 	- Dùng để khởi tạo biến lưu trữ danh sách kiểu va_list vừa lưu.
 
-	- Cú pháp: 'va_start( args, last_fixed_agr);'
+	- Cú pháp: `va_start( args, last_fixed_agr);`
 
-	- ' last_fixed_agr ' là đối số cố định cuối cùng trước khi bắt đầu danh sách đối số biến thiên.
+	- ` last_fixed_agr ` là đối số cố định cuối cùng trước khi bắt đầu danh sách đối số biến thiên.
 
-	- Ở đây sẽ bắt đầu trỏ từ đối số đầu tiên sau   last_fixed_agr
+	- Ở đây sẽ bắt đầu trỏ từ đối số đầu tiên sau   `last_fixed_agr`
 
 3. Va_arg()
 	
@@ -177,13 +177,13 @@ Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến 
 
 	- Mỗi lần gọi sẽ truy xuất trả về đối số tiếp theo và di chuyển con trỏ tới đối số kế tiếp.
 
-	- Cú pháp:'va_agr(args, int);'
+	- Cú pháp:`va_agr(args, int);`
 
 4. Va_end()
 
 	- Dùng để kết thúc việc sử dụng danh sách đối số biến đổi, dọn sạch đối tượng va_list và giải phóng tài nguyên.
 
-	- Cú pháp:'va_end(args);'
+	- Cú pháp:`va_end(args);`
 
 ## Thư viện Assert.h để làm gì?
 
@@ -191,5 +191,5 @@ Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến 
 
  - Thư viện cung cấp 1 macro assert kiểm tra một điều kiện luôn luôn đúng. Nếu sai thì chương trình sẽ dừng và báo lỗi.
  
-Cú pháp: 'assert(biểu_thức);'
+Cú pháp: `assert(biểu_thức);`
 
