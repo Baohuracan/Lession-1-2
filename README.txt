@@ -40,3 +40,41 @@ Bước 4: Liên kết (Linking)
 	- Kết hợp các mã đối tượng (file.o/ file.obj ) và thư viện tiêu chuẩn( file.lib)  lại với nhau tạo  thành file thực thi cuối cùng (file.exe đối với windows).
 
 
+Macro là gì?
+Macro là một cơ chế của trình tiền xử lý giúp chúng ta định nghĩa các hằng số, đoạn mã lệnh ngắn gọn có thể thay thế hoặc mở rộng trước khi chương trình được biên dịch
+
+Tại sao dùng Macro?
+	- Để tăng cường tính tái sử dụng đối với những đoạn mã lặp lại, định nghĩa hằng số một cách ngắn gọn.
+	- Giúp mã nhanh hơn  hơn so với hàm trong một số trường hợp. Vì macro được xử lý trong giai đoạn tiền xử lý và không tạo ra lời gọi hàm.
+	- Dễ dàng bảo trì mã. Khi bạn cần thay thế hoặc sửa đổi bạn chỉ cần làm với macro thay vì thay đổi mọi nơi mà đoạn mã hay hằng số đó xuất hiện. 
+	- Có thể dùng macro để kiểm tra điều kiện biên dịch giúp chương trình có thể điều chỉnh dựa trên cấu hình hoặc môi trường biên dịch khác nhau.
+
+	
+
+
+Có một số macro sau:
+#include
+	- Cho phép chèn nội dung của  tệp khác vào tệp hiện tại trước khi biên dịch.
+	- Sử dụng dấu '< >' cho các tệp tiêu chuẩn như các tệp tiêu đề header file trong các thư mục mục thư viện chuẩn của hệ thống.
+	- Sử dụng dấu ' " " ' cho các tệp của người dùng.
+#define
+	- Để định nghĩa macro chúng ta dùng cú pháp như sau:
+	#define Tên_macro  giá_trị_hoặc_đoạn_mã
+Các loại macro gồm:
+	- Macro có tham số: Có thể nhận tham số và thực hiện thao tác trên những tham số đó.
+	#define SQUARE(x) ((x) * (x))
+	- Macro không tham số: Định nghĩa một giá trị cố định
+	#define PI 3.14159
+	- Để loại bỏ macro ta sử dụng #undef
+	
+
+#if
+	- Nếu điều kiện này đúng thì thực hiện đoạn mã phía dưới.
+#elif
+	- Được sử dụng sau #if hoặc #elif để kiểm tra điều khiện thêm nếu điều kiện trước sai.
+#else
+	- Nếu không có điều kiện nào trước đó đúng thì sẽ thực hiện các câu lệnh sau #else.
+#ifdef
+	- Dùng để kiểm tra xem macro đã được định nghĩa hay chưa.
+#ifndef
+Dùng để kiểm tra xem macro chưa được định nghĩa.
