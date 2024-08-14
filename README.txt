@@ -77,4 +77,4 @@ Các loại macro gồm:
 #ifdef
 	- Dùng để kiểm tra xem macro đã được định nghĩa hay chưa.
 #ifndef
-Dùng để kiểm tra xem macro chưa được định nghĩa.
+	- Dùng để kiểm tra xem macro chưa được định nghĩa.
