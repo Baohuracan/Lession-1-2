@@ -1,14 +1,16 @@
-#**BÀI 1:**
+#BÀI 1:
+
 ##Trình biên dịch là gì ?
 
 
-	- Trình biên dịch là một chương trình máy tính  có nhiệm vụ dịch một mã nguồn được viết bằng 1 ngôn ngữ lập trình cấp cao thành một chương trình tương đương dưới 
+ Trình biên dịch là một chương trình máy tính  có nhiệm vụ dịch một mã nguồn được viết bằng 1 ngôn ngữ lập trình cấp cao thành một chương trình tương đương dưới 
+ 
 
 dạng  ngôn ngữ máy (010101...) hoặc ngôn ngữ bậc thấp ( assembly).
 
 ##Tại sao cần trình biên dịch?
 
-	- Máy tính chỉ hiểu và thực thi các lệnh ở dạng mã máy, một chuỗi các số 0 và 1. Còn con người thì sử dụng và viết các lệnh bằng ngôn ngữ bậc cao. Và trình biên 
+ Máy tính chỉ hiểu và thực thi các lệnh ở dạng mã máy, một chuỗi các số 0 và 1. Còn con người thì sử dụng và viết các lệnh bằng ngôn ngữ bậc cao. Và trình biên 
 
 dịch đóng vai trò là cầu nối để máy tính hiểu và thực thi các lệnh của chúng ta.
 
@@ -17,6 +19,7 @@ Quá trình biên dịch của Compiler trải qua 4 bước như sau:
 
 
 ##Bước 1: Tiền xử lý (Preprocessing)
+
 	- Đầu tiên file chúng ta code sẽ được lưu dưới dạng file.c / file.cpp
 
 	- Sau đó trình biên dịch xóa bỏ comment sẽ xử lý các chỉ thị tiền xử lý ( preprocessor directives ) như #include, '#define', '#if' và các macro khác thành một tệp  file.i
@@ -72,13 +75,14 @@ Quá trình biên dịch của Compiler trải qua 4 bước như sau:
 Macro là một cơ chế của trình tiền xử lý giúp chúng ta định nghĩa các hằng số, đoạn mã lệnh ngắn gọn có thể thay thế hoặc mở rộng trước khi chương trình được biên dịch
 
 ##Tại sao dùng Macro?
-	- Để tăng cường tính tái sử dụng đối với những đoạn mã lặp lại, định nghĩa hằng số một cách ngắn gọn.
 
-	- Giúp mã nhanh hơn  hơn so với hàm trong một số trường hợp. Vì macro được xử lý trong giai đoạn tiền xử lý và không tạo ra lời gọi hàm.
+ Để tăng cường tính tái sử dụng đối với những đoạn mã lặp lại, định nghĩa hằng số một cách ngắn gọn.
 
-	- Dễ dàng bảo trì mã. Khi chúng ta cần thay thế hoặc sửa đổi bạn chỉ cần làm với macro thay vì thay đổi mọi nơi mà đoạn mã hay hằng số đó xuất hiện. 
+ Giúp mã nhanh hơn  hơn so với hàm trong một số trường hợp. Vì macro được xử lý trong giai đoạn tiền xử lý và không tạo ra lời gọi hàm.
 
-	- Có thể dùng macro để kiểm tra điều kiện biên dịch giúp chương trình có thể điều chỉnh dựa trên cấu hình hoặc môi trường biên dịch khác nhau.
+ Dễ dàng bảo trì mã. Khi chúng ta cần thay thế hoặc sửa đổi bạn chỉ cần làm với macro thay vì thay đổi mọi nơi mà đoạn mã hay hằng số đó xuất hiện. 
+
+ Có thể dùng macro để kiểm tra điều kiện biên dịch giúp chương trình có thể điều chỉnh dựa trên cấu hình hoặc môi trường biên dịch khác nhau.
 
 	
 
@@ -87,29 +91,29 @@ Macro là một cơ chế của trình tiền xử lý giúp chúng ta định n
 
 #include
 
-	- Cho phép chèn nội dung của  tệp khác vào tệp hiện tại trước khi biên dịch.
+ Cho phép chèn nội dung của  tệp khác vào tệp hiện tại trước khi biên dịch.
 
-	- Sử dụng dấu '< >' cho các tệp tiêu chuẩn như các tệp tiêu đề header file trong các thư mục mục thư viện chuẩn của hệ thống.
+ Sử dụng dấu '< >' cho các tệp tiêu chuẩn như các tệp tiêu đề header file trong các thư mục mục thư viện chuẩn của hệ thống.
 
-	- Sử dụng dấu ' " " ' cho các tệp của người dùng.
+ Sử dụng dấu ' " " ' cho các tệp của người dùng.
 
 #define
 
-	- Để định nghĩa macro chúng ta dùng cú pháp như sau:
+Để định nghĩa macro chúng ta dùng cú pháp như sau:
 
 	'#define' Tên_macro  giá_trị_hoặc_đoạn_mã
 
 Các loại macro gồm:
 
-	- Macro có tham số: Có thể nhận tham số và thực hiện thao tác trên những tham số đó.
+ Macro có tham số: Có thể nhận tham số và thực hiện thao tác trên những tham số đó.
 
 	'#define SQUARE(x) ((x) * (x))'
 
-	- Macro không tham số: Định nghĩa một giá trị cố định
+ Macro không tham số: Định nghĩa một giá trị cố định
 
 	'#define PI 3.14159'
 
-	- Để loại bỏ macro ta sử dụng #undef
+ Để loại bỏ macro ta sử dụng #undef
 	
 
 '#if'
