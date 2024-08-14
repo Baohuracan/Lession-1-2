@@ -2,6 +2,7 @@
 
 ## Trình biên dịch là gì ?
 
+![Uploading image.png…]()
 
  Trình biên dịch là một chương trình máy tính  có nhiệm vụ dịch một mã nguồn được viết bằng 1 ngôn ngữ lập trình cấp cao thành một chương trình tương đương dưới 
  
@@ -13,6 +14,7 @@ dạng  ngôn ngữ máy (010101...) hoặc ngôn ngữ bậc thấp ( assembly)
  Máy tính chỉ hiểu và thực thi các lệnh ở dạng mã máy, một chuỗi các số 0 và 1. Còn con người thì sử dụng và viết các lệnh bằng ngôn ngữ bậc cao. Và trình biên 
 
 dịch đóng vai trò là cầu nối để máy tính hiểu và thực thi các lệnh của chúng ta.
+![Uploading image.png…]()
 
 
 Quá trình biên dịch của Compiler trải qua 4 bước như sau:
