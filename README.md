@@ -11,7 +11,6 @@
 ## Tại sao cần trình biên dịch?
 
  Máy tính chỉ hiểu và thực thi các lệnh ở dạng mã máy, một chuỗi các số 0 và 1. Còn con người thì sử dụng và viết các lệnh bằng ngôn ngữ bậc cao. Và trình biên 
-
 dịch đóng vai trò là cầu nối để máy tính hiểu và thực thi các lệnh của chúng ta.
 
 
