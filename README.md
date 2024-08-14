@@ -2,7 +2,7 @@
 
 ## Trình biên dịch là gì ?
 
-![](![image](https://github.com/user-attachments/assets/d9ccbc68-f8a5-4c55-adb5-96b8c404b769)
+![image](https://github.com/user-attachments/assets/d9ccbc68-f8a5-4c55-adb5-96b8c404b769)
 
 
  Trình biên dịch là một chương trình máy tính  có nhiệm vụ dịch một mã nguồn được viết bằng 1 ngôn ngữ lập trình cấp cao thành một chương trình tương đương dưới 
