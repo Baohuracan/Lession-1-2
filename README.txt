@@ -78,3 +78,33 @@ Các loại macro gồm:
 	- Dùng để kiểm tra xem macro đã được định nghĩa hay chưa.
 #ifndef
 	- Dùng để kiểm tra xem macro chưa được định nghĩa.
+
+BÀI 2: 
+Thư viện Stdarg.h dùng để làm gì?
+
+Thư viện này dùng trong trường hợp đầu vào của 1 hàm không xác định về số lượng và kiểu. 
+
+Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến thiên bằng các macro.
+
+Các macro chính trong thư viện:
+
+
+	1. Va_list 
+	
+	- Dùng để khai báo 1 biến kiểu dữ liệu lưu trữ thông tin của danh sách đối số biến đổi
+	- Cú pháp: args;
+	
+	2. Va_start()
+	
+	- Dùng để khởi tạo biến lưu trữ danh sách kiểu va_list vừa lưu.
+	- Cú pháp: va_start( args, last_fixed_agr);
+	- ' last_fixed_agr ' là đối số cố định cuối cùng trước khi bắt đầu danh sách đối số biến thiên.
+	- Ở đây sẽ bắt đầu trỏ từ đối số đầu tiên sau   last_fixed_agr
+	3. Va_arg()
+	
+	- Dùng để truy xuất từng đối số trong danh sách đối số biến đổi.
+	- Mỗi lần gọi sẽ truy xuất trả về đối số tiếp theo và di chuyển con trỏ tới đối số kế tiếp.
+	- Cú pháp: va_agr(args, int);
+	4. Va_end()
+	- Dùng để kết thúc việc sử dụng danh sách đối số biến đổi, dọn sạch đối tượng va_list và giải phóng tài nguyên.
+	- Cú pháp: va_end(args);
