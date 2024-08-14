@@ -2,7 +2,8 @@
 
 ## Trình biên dịch là gì ?
 
-![Uploading image.png…]()
+![](![image](https://github.com/user-attachments/assets/d9ccbc68-f8a5-4c55-adb5-96b8c404b769)
+
 
  Trình biên dịch là một chương trình máy tính  có nhiệm vụ dịch một mã nguồn được viết bằng 1 ngôn ngữ lập trình cấp cao thành một chương trình tương đương dưới 
  
@@ -14,7 +15,11 @@ dạng  ngôn ngữ máy (010101...) hoặc ngôn ngữ bậc thấp ( assembly)
  Máy tính chỉ hiểu và thực thi các lệnh ở dạng mã máy, một chuỗi các số 0 và 1. Còn con người thì sử dụng và viết các lệnh bằng ngôn ngữ bậc cao. Và trình biên 
 
 dịch đóng vai trò là cầu nối để máy tính hiểu và thực thi các lệnh của chúng ta.
-![Uploading image.png…]()
+
+
+![image](https://github.com/user-attachments/assets/44627f00-df30-468e-9e94-0cede4491f25)
+
+
 
 
 Quá trình biên dịch của Compiler trải qua 4 bước như sau:
@@ -122,15 +127,19 @@ Các loại macro gồm:
 '#if'
 
 -  Nếu điều kiện này đúng thì thực hiện đoạn mã phía dưới.
+  
 '#elif'
 
 -  Được sử dụng sau #if hoặc #elif để kiểm tra điều khiện thêm nếu điều kiện trước sai.
+  
 '#else'
 
 - Nếu không có điều kiện nào trước đó đúng thì sẽ thực hiện các câu lệnh sau #else.
+  
 '#ifdef'
 
 - Dùng để kiểm tra xem macro đã được định nghĩa hay chưa.
+  
 '#ifndef'
 
 - Dùng để kiểm tra xem macro chưa được định nghĩa.
