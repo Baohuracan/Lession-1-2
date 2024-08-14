@@ -184,3 +184,12 @@ Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến 
 	- Dùng để kết thúc việc sử dụng danh sách đối số biến đổi, dọn sạch đối tượng va_list và giải phóng tài nguyên.
 
 	- Cú pháp:'va_end(args);'
+
+## Thư viện Assert.h để làm gì?
+
+ - Dùng để kiểm tra một điều kiện trong mã nguồn và phát hiện lỗi.
+
+ - Thư viện cung cấp 1 macro assert kiểm tra một điều kiện luôn luôn đúng. Nếu sai thì chương trình sẽ dừng và báo lỗi.
+ 
+Cú pháp: 'assert(biểu_thức);'
+
