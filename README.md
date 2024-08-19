@@ -193,3 +193,146 @@ Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến 
  
 Cú pháp: `assert(biểu_thức);`
 
+#Bài 3: Pointer
+
+## Pointer là gì?
+
+Con trỏ là một loại biến như các biến khác nhưng nó thay vì lưu giá trị trực tiếp thì nó lưu địa chỉ
+
+ của một biến khác trong bộ nhớ. Nó sẽ trỏ tới biến đó và cho phép chúng ta truy cập và thao tác 
+
+với dữ liệu thông qua địa chỉ của biến đó.
+
+Để khai báo con trỏ ta sử dụng cú pháp:
+
+ kiểu _dữ_liệu_*_tên_con_trỏ 
+
+Kích thước của con trỏ dựa vào kiến trúc máy tính và trình biên dịch ( 4 byte - 32 bit, 8 byte - 64 bit)
+
+## Tại sao cần con trỏ?
+
+	1. Để truyền tham chiếu trong hàm
+
+	- Khi bạn truyền một biến mà không sử dụng con trỏ, hàm chỉ nhận một bản sao của biến 
+
+	đó. Bất kỳ thay đổi nào trong hàm sẽ không ảnh hưởng tới biến gốc bên ngoài.
+	
+	- Còn khi dùng con trỏ thì sẽ trực tiếp truy cập và thay đổi biến gốc.
+	
+	2. Quản lý bộ nhớ động
+	
+	- Có thể yêu cầu cấp phát và giải phóng thông qua các hàm `malloc`, `calloc`, `free`.
+	
+	3. Làm việc với mảng và chuỗi
+
+	- Có thể truy cập và thao tác các phần tử mà không cần chỉ số index.
+
+
+Ngoài ra nó còn giúp tối ưu hóa hiệu suất chương trình, truy cập và thao tác với phần cứng.
+
+## Các loại  pointer?
+
+
+
+### Pointer trỏ đến biến
+
+Đây là con trỏ trỏ đến biến dữ liệu cơ bản
+
+Ví dụ:
+
+ `int a = 5;` 
+
+`int *ptr = &a;
+
+### Pointer trỏ đến mảng
+
+Con trỏ này sẽ trỏ đến phần tử đầu tiên của mảng
+
+Ví dụ:
+
+`int arr[5];`
+
+`int *ptr = arr;`
+
+
+### Pointer trỏ đến hàm
+
+Tương tự như cách con trỏ lưu địa chỉ của biến, con trỏ cũng có thể lưu địa chỉ của hàm.
+
+ Con trỏ này lưu giá trị của địa chỉ nơi hàm bắt đầu trong bộ nhớ. Nó thường được sử dụng để 
+
+gọi hàm thông qua con trỏ hoặc thực hiện callback hàm khác khi nó là tham số của hàm.
+
+	void Function(int a) {
+    printf("Value: %d\n", a);
+	}
+
+	void (*funcPtr)(int) = &Function;
+	funcPtr(10); // Gọi hàm Function thông qua con trỏ
+	
+
+### Null Pointer
+
+Null Pointer là con trỏ không trỏ đến bất kỳ đối tượng nào và có giá trị và địa chỉ là 0x0.
+
+ Đây là con trỏ đặc biệt thường được sử dụng để kiểm tra xem con trỏ có hợp lệ hay không 
+
+trước khi truy cập vào vùng nhớ mà nó trỏ tới.
+
+### Void Pointer
+
+Void Pointer (con trỏ vô định) là con trỏ có thể trỏ đến bất kỳ loại dữ liệu nào,
+
+ nhưng khi truy xuất dữ liệu, bạn cần phải ép kiểu con trỏ này sang kiểu con trỏ thích hợp.
+
+`
+void *ptr;
+int a = 5;
+ptr = &a;
+printf("%d\n", *(int *)ptr); // Ép kiểu sang int* trước khi dereference
+`
+
+### Const Pointer
+
+Const Pointer là con trỏ trỏ đến một địa chỉ và không thể thay đổi địa chỉ mà nó trỏ tới sau khi 
+
+đã được khởi tạo.  
+
+`
+int a = 5;
+int b = 10;
+int *const ptr = &a;
+ptr = &b; // Lỗi: không thể thay đổi địa chỉ mà ptr trỏ tới
+`
+
+### Pointer to const
+
+Pointer to const là con trỏ trỏ tới một giá trị không thể thay đổi, nhưng bản thân con trỏ có thể
+
+ được thay đổi để trỏ đến một địa chỉ khác.
+
+`
+const int a = 5;
+const int b = 10;
+const int *ptr = &a;
+ptr = &b; // Hợp lệ, nhưng không thể thay đổi giá trị của b thông qua ptr
+`
+
+### Dangling Pointer
+
+Dangling Pointer là con trỏ trỏ đến một địa chỉ không còn hợp lệ, thường xảy ra sau khi bộ nhớ 
+
+đã bị giải phóng. 
+
+###Pointer trỏ đến Pointer
+
+Đây là con trỏ lưu địa chỉ của một con trỏ khác. Nó được sử dụng trong các trường hợp cần xử lý
+
+ nhiều cấp độ tham chiếu.
+
+`int a = 5;
+int *ptr = &a;
+int **ptr2 = &ptr; // ptr2 trỏ đến con trỏ ptr`
+
+
+
