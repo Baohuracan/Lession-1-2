@@ -214,7 +214,7 @@ Kích thước của con trỏ dựa vào kiến trúc máy tính và trình bi�
 
 ## Tại sao cần con trỏ?
 
-	1. Để truyền tham chiếu trong hàm
+1. Để truyền tham chiếu trong hàm
 
 	- Khi bạn truyền một biến mà không sử dụng con trỏ, hàm chỉ nhận một bản sao của biến 
 
