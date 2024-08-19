@@ -222,11 +222,11 @@ Kích thước của con trỏ dựa vào kiến trúc máy tính và trình bi�
 	
 	- Còn khi dùng con trỏ thì sẽ trực tiếp truy cập và thay đổi biến gốc.
 	
-	2. Quản lý bộ nhớ động
+2. Quản lý bộ nhớ động
 	
 	- Có thể yêu cầu cấp phát và giải phóng thông qua các hàm `malloc`, `calloc`, `free`.
 	
-	3. Làm việc với mảng và chuỗi
+3. Làm việc với mảng và chuỗi
 
 	- Có thể truy cập và thao tác các phần tử mà không cần chỉ số index.
 
