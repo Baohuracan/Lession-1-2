@@ -193,7 +193,7 @@ Thư viện giúp chúng ta tạo ra một hàm có lượng đối số biến 
  
 Cú pháp: `assert(biểu_thức);`
 
-#Bài 3: Pointer
+# **Bài 3: Pointer**
 
 ![image](https://github.com/user-attachments/assets/8ce0ba7d-98d6-47b5-ac88-908a6f13218b)
 
