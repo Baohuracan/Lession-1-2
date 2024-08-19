@@ -195,6 +195,9 @@ Cú pháp: `assert(biểu_thức);`
 
 #Bài 3: Pointer
 
+![image](https://github.com/user-attachments/assets/8ce0ba7d-98d6-47b5-ac88-908a6f13218b)
+
+
 ## Pointer là gì?
 
 Con trỏ là một loại biến như các biến khác nhưng nó thay vì lưu giá trị trực tiếp thì nó lưu địa chỉ
@@ -325,6 +328,9 @@ Dangling Pointer là con trỏ trỏ đến một địa chỉ không còn hợp
 đã bị giải phóng. 
 
 ###Pointer trỏ đến Pointer
+
+![image](https://github.com/user-attachments/assets/5740e966-0a17-4e9f-ad5d-3a644bfeef92)
+
 
 Đây là con trỏ lưu địa chỉ của một con trỏ khác. Nó được sử dụng trong các trường hợp cần xử lý
 
