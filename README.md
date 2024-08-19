@@ -263,7 +263,6 @@ Ví dụ:
 Tương tự như cách con trỏ lưu địa chỉ của biến, con trỏ cũng có thể lưu địa chỉ của hàm.
 
  Con trỏ này lưu giá trị của địa chỉ nơi hàm bắt đầu trong bộ nhớ. Nó thường được sử dụng để 
-
 gọi hàm thông qua con trỏ hoặc thực hiện callback hàm khác khi nó là tham số của hàm.
 
 	void Function(int a) {
