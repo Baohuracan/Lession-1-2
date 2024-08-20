@@ -245,7 +245,7 @@ Ví dụ:
 
  `int a = 5;` 
 
-`int *ptr = &a;
+`int *ptr = &a;`
 
 ### Pointer trỏ đến mảng
 
@@ -279,7 +279,7 @@ Null Pointer là con trỏ không trỏ đến bất kỳ đối tượng nào v
 
  Đây là con trỏ đặc biệt thường được sử dụng để kiểm tra xem con trỏ có hợp lệ hay không 
 
-trước khi truy cập vào vùng nhớ mà nó trỏ tới.
+ trước khi truy cập vào vùng nhớ mà nó trỏ tới.
 
 ### Void Pointer
 
