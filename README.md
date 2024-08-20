@@ -337,7 +337,7 @@ Dangling Pointer là con trỏ trỏ đến một địa chỉ không còn hợp
 
 đã bị giải phóng. 
 
-###Pointer trỏ đến Pointer
+### Pointer trỏ đến Pointer
 
 ![image](https://github.com/user-attachments/assets/5740e966-0a17-4e9f-ad5d-3a644bfeef92)
 
