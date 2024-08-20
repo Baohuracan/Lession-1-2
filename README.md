@@ -266,10 +266,12 @@ Tương tự như cách con trỏ lưu địa chỉ của biến, con trỏ cũn
 gọi hàm thông qua con trỏ hoặc thực hiện callback hàm khác khi nó là tham số của hàm.
 
 	void Function(int a) {
+ 
     printf("Value: %d\n", a);
 	}
 
 	void (*funcPtr)(int) = &Function;
+ 
 	funcPtr(10); // Gọi hàm Function thông qua con trỏ
 	
 
@@ -287,12 +289,15 @@ Void Pointer (con trỏ vô định) là con trỏ có thể trỏ đến bất 
 
  nhưng khi truy xuất dữ liệu, bạn cần phải ép kiểu con trỏ này sang kiểu con trỏ thích hợp.
 
-`
-void *ptr;
-int a = 5;
-ptr = &a;
-printf("%d\n", *(int *)ptr); // Ép kiểu sang int* trước khi dereference
-`
+
+`void *ptr;`
+
+`int a = 5;`
+
+`ptr = &a;`
+
+`printf("%d\n", *(int *)ptr); // Ép kiểu sang int* trước khi dereference`
+
 
 ### Const Pointer
 
@@ -301,11 +306,14 @@ Const Pointer là con trỏ trỏ đến một địa chỉ và không thể tha
 đã được khởi tạo.  
 
 `
-int a = 5;
-int b = 10;
-int *const ptr = &a;
-ptr = &b; // Lỗi: không thể thay đổi địa chỉ mà ptr trỏ tới
-`
+int a = 5;`
+
+`int b = 10;`
+
+`int *const ptr = &a;`
+
+`ptr = &b; // Lỗi: không thể thay đổi địa chỉ mà ptr trỏ tới`
+
 
 ### Pointer to const
 
@@ -314,10 +322,13 @@ Pointer to const là con trỏ trỏ tới một giá trị không thể thay đ
  được thay đổi để trỏ đến một địa chỉ khác.
 
 `
-const int a = 5;
-const int b = 10;
-const int *ptr = &a;
-ptr = &b; // Hợp lệ, nhưng không thể thay đổi giá trị của b thông qua ptr
+const int a = 5;`
+
+`const int b = 10;`
+
+`const int *ptr = &a;`
+
+`ptr = &b; // Hợp lệ, nhưng không thể thay đổi giá trị của b thông qua ptr
 `
 
 ### Dangling Pointer
@@ -335,9 +346,11 @@ Dangling Pointer là con trỏ trỏ đến một địa chỉ không còn hợp
 
  nhiều cấp độ tham chiếu.
 
-`int a = 5;
-int *ptr = &a;
-int **ptr2 = &ptr; // ptr2 trỏ đến con trỏ ptr`
+`int a = 5;`
+
+`int *ptr = &a;`
+
+`int **ptr2 = &ptr; // ptr2 trỏ đến con trỏ ptr`
 
 
 
