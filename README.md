@@ -353,4 +353,170 @@ Dangling Pointer là con trỏ trỏ đến một địa chỉ không còn hợp
 `int **ptr2 = &ptr; // ptr2 trỏ đến con trỏ ptr`
 
 
+# Bài 4: Extern - Static - Volatile - Register
 
+
+
+
+## `Extern`
+
+Từ khóa `extern` được dùng để khai báo biến hoặc hàm đã được định nghĩa ở một tệp khác và cần được sử dụng trong tệp hiện tại.
+
+
+### Ví dụ
+
+**Tệp `main.c`:**
+```c
+#include <stdio.h>
+extern void display();
+
+int main() {
+    printf("Hello");
+    display();
+}
+```
+
+**Tệp `other.c`:**
+```c
+#include <stdio.h>
+
+void display() {
+    printf("Bao");
+}
+```
+
+### Để chạy hai tệp này liên kết với nhau, chúng ta làm như sau:
+
+1. Biên dịch từng tệp thành các tệp đối tượng:
+    ```bash
+    gcc -c main.c
+    gcc -c other.c
+    ```
+
+2. Sử dụng `gcc` để liên kết các tệp đối tượng thành một tệp thực thi:
+    ```bash
+    gcc main.o other.o -o main
+    ```
+
+3. Chạy chương trình:
+    ```bash
+    ./main.exe
+    ```
+
+---
+
+## `Static`
+
+Biến `static` sẽ tồn tại suốt vòng đời chương trình, không chỉ trong phạm vi hàm.
+
+- Thường được sử dụng khi viết thư viện mà bạn không muốn người dùng can thiệp vào các biến, họ chỉ có thể sử dụng thư viện của bạn.
+
+- Đối với biến static cục bộ trong hàm, biến này chỉ được khởi tạo một lần duy nhất và giữ nguyên giá trị giữa các lần gọi hàm.
+
+### Ví dụ đếm biến `count`:
+
+**Tệp `main.c`:**
+```c
+#include <stdio.h>
+
+void dem() {
+    static int count = 0;
+    count++;
+    printf("count: %d\n", count);
+}
+
+int main() {
+    for (int i = 0; i < 4; i++) {
+        dem();
+    }
+}
+```
+
+**Kết quả:**
+```
+count: 1
+count: 2
+count: 3
+count: 4
+```
+
+---
+
+## `Register`
+
+![image](https://github.com/user-attachments/assets/601de82b-2f52-4cc5-8261-5f6145fa3c70)
+
+
+Khi sử dụng biến `register`, biến sẽ được lưu trữ trong thanh ghi, giúp xử lý nhanh hơn.
+
+- Không phải tất cả các biến đều được lưu trong thanh ghi vì giới hạn số lượng thanh ghi.
+
+- Trình biên dịch hiện đại như `gcc` đã được tối ưu hóa tốt để quyết định liệu có nên đặt biến trong thanh ghi hay không.
+
+### Ví dụ đo thời gian thực thi của một đoạn mã:
+
+**Tệp `main.c`:**
+```c
+#include <stdio.h>
+#include <time.h>
+
+int main(void) {
+    register unsigned long i;
+    clock_t start, end;
+    double cpu_time_used;
+
+    // Bắt đầu đo thời gian
+    start = clock();
+
+    // Vòng lặp trống để tiêu tốn thời gian CPU
+    for (i = 0; i < 99999999; i++);
+
+    // Kết thúc đo thời gian
+    end = clock();
+
+    // Tính toán thời gian CPU đã sử dụng
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+
+    // In ra thời gian thực thi
+    printf("Time: %f seconds\n", cpu_time_used);
+
+    return 0;
+}
+```
+
+**Kết quả:**
+```
+Time: 0.024000 seconds
+```
+
+---
+
+## `Volatile`
+
+Biến `volatile` sẽ không bị trình biên dịch tối ưu hóa.
+
+- Thường sử dụng cho các trường hợp biến có thể thay đổi đột ngột từ bên ngoài (ví dụ: ngắt, đầu đọc USB).
+
+- Trình biên dịch không được tối ưu hóa việc truy cập đến biến `volatile`, tức là mỗi lần truy cập, giá trị của biến sẽ được đọc trực tiếp từ bộ nhớ, không phải từ thanh ghi.
+
+- Từ khóa này thường được sử dụng trong các ứng dụng hệ thống nhúng, nơi mà giá trị của biến có thể thay đổi mà không được chương trình trực tiếp thay đổi, như từ một phần cứng khác.
+
+### Ví dụ:
+
+**Tệp `main.c`:**
+```c
+volatile int flag = 0;
+
+void checkFlag() {
+    while (flag == 0) {
+        // Trình biên dịch sẽ không tối ưu hóa và sẽ liên tục đọc giá trị từ bộ nhớ.
+    }
+}
+```
+
+**Lưu ý:**
+- **Lưu trữ biến trong thanh ghi:** Nhanh nhưng không thể thay đổi giá trị từ bên ngoài mà trình biên dịch biết được ngay lập tức.
+- **Lưu trữ biến trong bộ nhớ:** Chậm hơn nhưng cho phép giá trị biến có thể thay đổi từ bên ngoài.
+- **volatile** đảm bảo rằng biến được đọc từ bộ nhớ mỗi lần truy cập, giúp chương trình xử lý đúng với những thay đổi không dự đoán được, như từ ngắt hoặc phần cứng.
+
+---
