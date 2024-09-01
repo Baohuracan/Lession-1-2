@@ -520,3 +520,96 @@ void checkFlag() {
 - **volatile** đảm bảo rằng biến được đọc từ bộ nhớ mỗi lần truy cập, giúp chương trình xử lý đúng với những thay đổi không dự đoán được, như từ ngắt hoặc phần cứng.
 
 ---
+
+
+
+---
+
+# Bài 5: `goto` và `setjmp.h`
+
+## 1. `goto` là gì?
+
+`goto` là một lệnh trong ngôn ngữ lập trình C cho phép bạn nhảy tới một nhãn (label) trong cùng một hàm. Nó thường được sử dụng để điều khiển dòng chảy của chương trình một cách rõ ràng, chẳng hạn như để thoát khỏi các vòng lặp phức tạp hoặc các khối mã lồng nhau.
+
+### Khi nào nên dùng `goto`?
+- Thoát khỏi nhiều vòng lặp lồng nhau.
+- Xử lý lỗi hoặc tình huống khẩn cấp khi không có cách nào khác rõ ràng và sạch sẽ hơn.
+
+### Khi nào không nên dùng `goto`?
+- Khi có thể đạt được mục đích bằng cách sử dụng các cấu trúc điều khiển dòng chảy khác như `break`, `continue`, hoặc `return`.
+- Tránh lạm dụng `goto` vì nó có thể làm cho mã trở nên khó hiểu và khó bảo trì.
+
+### Ví dụ về `goto`:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int count = 0;
+    
+    while (1) {
+        count++;
+        printf("Count: %d\t", count);
+        
+        if (count > 9) {
+            printf("Stop!");
+            goto exit;  // Nhảy đến nhãn "exit" để thoát khỏi vòng lặp
+        }
+    }
+    
+exit:  // Nhãn "exit"
+    return 0;
+}
+```
+
+**Giải thích:**
+- Trong ví dụ trên, `goto` được sử dụng để thoát khỏi vòng lặp khi biến `count` lớn hơn 9. Lệnh `goto` nhảy đến nhãn `exit`, làm kết thúc vòng lặp.
+
+---
+
+## 2. `setjmp` và `longjmp` trong C
+
+### `setjmp.h` là gì?
+
+Thư viện `setjmp.h` trong C cung cấp hai hàm chính là `setjmp` và `longjmp`, cho phép bạn lưu trạng thái của chương trình tại một điểm và khôi phục lại trạng thái đó ở một điểm khác, tương tự như cơ chế xử lý ngoại lệ.
+
+- **`setjmp(jmp_buf env)`**: Lưu trạng thái hiện tại của chương trình vào biến `env` và trả về giá trị 0 khi được gọi lần đầu.
+- **`longjmp(jmp_buf env, int val)`**: Khôi phục lại trạng thái đã lưu trong `env` và trả về giá trị `val` cho hàm `setjmp`.
+
+### Khi nào dùng `setjmp` và `longjmp`?
+- Xử lý lỗi hoặc ngoại lệ mà không sử dụng cấu trúc try-catch.
+- Thoát khỏi các hàm lồng nhau hoặc vòng lặp khi gặp phải lỗi.
+
+### Ví dụ sử dụng `setjmp` và `longjmp`:
+
+```c
+#include <stdio.h>
+#include <setjmp.h>
+
+jmp_buf buf;
+
+int main() {
+    int exception_code = setjmp(buf);
+
+    if (exception_code != 10) {
+        for (int i = 0; i < 10; i++) {
+            printf("Lần thứ %d: 2\n", i + 1);
+        }
+        longjmp(buf, 10);  // Quay lại `setjmp` và trả về giá trị 10
+    }
+    
+    if (exception_code == 10) {
+        printf("Dừng\n");
+    }
+
+    return 0;
+}
+```
+
+**Giải thích:**
+- Khi `setjmp(buf)` được gọi lần đầu, nó trả về 0 và chương trình tiếp tục thực hiện in số "2" mười lần.
+- Sau khi in xong, `longjmp(buf, 10)` được gọi, làm khôi phục lại trạng thái đã lưu bởi `setjmp` và trả về giá trị 10.
+- Giá trị 10 được kiểm tra, và khi khớp, chương trình in ra "Dừng" và kết thúc.
+
+---
+![image](https://github.com/user-attachments/assets/47687c1c-7e51-4208-b9ef-4c1accf3673c)
