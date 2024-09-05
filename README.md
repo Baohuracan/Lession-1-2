@@ -612,7 +612,7 @@ int main() {
 - Giá trị 10 được kiểm tra, và khi khớp, chương trình in ra "Dừng" và kết thúc.
 
 ---
-![image](https://github.com/user-attachments/assets/47687c1c-7e51-4208-b9ef-4c1accf3673c)
+
 
 
 # **Bài 6**: Bitmask
