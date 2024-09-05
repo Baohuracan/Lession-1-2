@@ -672,11 +672,12 @@ Ví dụ:
 ![image](https://github.com/user-attachments/assets/f7da0918-82af-4347-b827-cc7bdf9a5f79)
 
 Ví dụ:
-		`   0101 1010 (trạng thái hiện tại của LED)
+
+		   0101 1010 (trạng thái hiện tại của LED)
 		^  0000 1000 (bitmask để đảo trạng thái LED thứ 4)
 		--------------
 		   0101 0010 (trạng thái mới của LED sau khi đảo trạng thái LED thứ 4)
-`
+
 
 ### NOT: ~
 
@@ -685,9 +686,10 @@ Ví dụ:
 ![image](https://github.com/user-attachments/assets/ff06d315-c372-423d-afb7-2ec479be6d79)
 
 Ví dụ:
-	`   0101 1010 (trạng thái hiện tại của LED)
-	~  ------------
-	   1010 0101 (trạng thái mới của LED sau khi dùng NOT)`
 
-![image](https://github.com/user-attachments/assets/6eecb3c8-ee0f-4a76-990e-ef25899c7e3a)
+	   0101 1010 (trạng thái hiện tại của LED)
+	~  ------------
+	   1010 0101 (trạng thái mới của LED sau khi dùng NOT)
+
+
 
