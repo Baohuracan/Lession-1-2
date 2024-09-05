@@ -627,7 +627,13 @@ Là một dãy các bit được dùng để thao tác với các bit cụ thể
 
 Bitmask cho phép chúng ta kiểm soát (bật,tắt, kiểm tra) một bit cụ thể trong một số khác
 
+## Tại sao sử dụng bit fields?
+
 Mục đích sử dụng là tối ưu bộ nhớ, lưu trữ và quản lý thông tin.
+
+Tiết kiệm bộ nhớ: Thay vì dùng cả một biến 8-bit, 16-bit hoặc 32-bit cho từng giá trị nhỏ, bạn có thể chỉ định chính xác số bit cần thiết.
+
+Điều khiển chi tiết: Bit fields hữu ích khi bạn cần lưu trữ và quản lý thông tin có cấu trúc nhỏ, chẳng hạn như trạng thái của phần cứng trong hệ thống nhúng.
 
 Ứng dụng trong lập trình cấp thấp nơi mà hiệu quả bộ nhớ và hiệu suất là điều quan trọng ví dụ như viết drive hoặc hệ thống nhúng.
 
