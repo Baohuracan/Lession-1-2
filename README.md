@@ -613,3 +613,81 @@ int main() {
 
 ---
 ![image](https://github.com/user-attachments/assets/47687c1c-7e51-4208-b9ef-4c1accf3673c)
+
+
+# **Bài 6**: Bitmask
+
+## Bitmask là gì
+
+![image](https://github.com/user-attachments/assets/5f21a57b-3a08-426e-8200-c7f3f716a82d)
+
+
+
+Là một dãy các bit được dùng để thao tác với các bit cụ thể thông qua các toán tử bitwise 
+
+Bitmask cho phép chúng ta kiểm soát (bật,tắt, kiểm tra) một bit cụ thể trong một số khác
+
+Mục đích sử dụng là tối ưu bộ nhớ, lưu trữ và quản lý thông tin.
+
+Ứng dụng trong lập trình cấp thấp nơi mà hiệu quả bộ nhớ và hiệu suất là điều quan trọng ví dụ như viết drive hoặc hệ thống nhúng.
+
+## Gồm những loại nào?
+
+Những toán tử phổ biến như sau:
+
+### AND : &
+
+- Thường dùng để kiểm tra một bit có được bật hay không
+- AND chỉ trả về  những nơi cả hai có bit là 1 nên có thể kiểm tra các bit cụ thể
+  
+![image](https://github.com/user-attachments/assets/60251f53-40a4-4a1d-8a1c-7a70d24cf813)
+
+Ví dụ:
+ 
+	   0101 1010 (trạng thái hiện tại của LED)
+	&  1111 0111 (bitmask để tắt LED thứ 3)
+	--------------
+	   0101 0010 (trạng thái mới của LED sau khi tắt LED thứ 3)
+	
+	Giả sử phép toán AND theo bit của hai số nguyên 12 và 25.
+
+
+### OR : |
+
+- Thường dùng để bật (set) các bit
+- OR trả về 1 nếu một trong hai bit là 1. Giúp bật một bit cụ thể mà không thay đổi các bit khác.
+![image](https://github.com/user-attachments/assets/62e8616f-29d1-4f00-8b16-ad2b6592f45a)
+
+Ví dụ:
+		`   0101 0010 (trạng thái hiện tại của LED)
+		|  0000 1000 (bitmask để bật LED thứ 4)
+		--------------
+		   0101 1010 (trạng thái mới của LED sau khi bật LED thứ 4)`
+
+
+### XOR : ^
+
+- Thường dùng để đảo ngược các bit cụ thể
+- XOR trả về 1 nếu hai bit khác nhau. Giúp đổi trạng thái (toggle) của 1 bit
+![image](https://github.com/user-attachments/assets/f7da0918-82af-4347-b827-cc7bdf9a5f79)
+
+Ví dụ:
+		`   0101 1010 (trạng thái hiện tại của LED)
+		^  0000 1000 (bitmask để đảo trạng thái LED thứ 4)
+		--------------
+		   0101 0010 (trạng thái mới của LED sau khi đảo trạng thái LED thứ 4)
+`
+
+### NOT: ~
+
+ - Thường dùng để đảo ngược toàn bộ các bit ( từ 0 thành 1, từ 1 thành 0)
+	
+![image](https://github.com/user-attachments/assets/ff06d315-c372-423d-afb7-2ec479be6d79)
+
+Ví dụ:
+	`   0101 1010 (trạng thái hiện tại của LED)
+	~  ------------
+	   1010 0101 (trạng thái mới của LED sau khi dùng NOT)`
+
+![image](https://github.com/user-attachments/assets/6eecb3c8-ee0f-4a76-990e-ef25899c7e3a)
+
