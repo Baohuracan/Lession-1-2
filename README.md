@@ -699,3 +699,261 @@ Ví dụ:
 
 
 
+
+---
+
+# Bài 7: Struct - Union
+![image](https://github.com/user-attachments/assets/d0d8dc11-451a-4b48-9296-43cafc30f64d)
+
+## Struct là gì?
+Struct (cấu trúc) là một kiểu dữ liệu do người dùng tự định nghĩa, cho phép lưu trữ nhiều kiểu dữ liệu khác nhau trong một đối tượng duy nhất.
+
+### Cú pháp:
+```c
+struct structure_name {
+    data_type member1;
+    data_type member2;
+    ...
+    data_type memberN;
+};
+```
+
+### Ví dụ:
+```c
+struct employee {
+    int id;
+    char name[50];
+    float salary;
+};
+```
+
+## Mục đích của Struct
+Struct giúp lưu trữ một tập hợp dữ liệu liên quan, giúp việc quản lý dữ liệu dễ dàng và rõ ràng hơn.
+
+## Các thao tác với Struct
+
+### Khởi tạo thành viên
+- **Khai báo trong hàm main**:
+```c
+struct employee e1, e2;
+```
+- **Khai báo trực tiếp khi định nghĩa cấu trúc**:
+```c
+struct employee {
+    int id;
+    char name[50];
+    float salary;
+} e1, e2;
+```
+
+### Truy cập thành viên
+- Sử dụng toán tử chấm (`.`) để truy cập các thành viên của struct.
+- Sử dụng toán tử con trỏ (`->`) khi làm việc với con trỏ trỏ tới struct.
+
+### Ví dụ:
+```c
+#include <stdio.h>
+
+struct employee {
+    int id;
+    char name[50];
+    float salary;
+};
+
+int main() {
+    struct employee e1;
+    struct employee *ptr = &e1;
+
+    e1.id = 1;
+    ptr->id = 2;
+    
+    printf("ID: %d\n", ptr->id);
+    return 0;
+}
+```
+
+### Sử dụng typedef để tạo bí danh cho struct
+```c
+#include <stdio.h>
+
+typedef struct employee {
+    int id;
+    char name[50];
+    float salary;
+} Employee;
+
+int main() {
+    Employee e1 = {1, "John", 5000.50};
+
+    printf("ID: %d, Name: %s\n", e1.id, e1.name);
+    return 0;
+}
+```
+
+## Cách tính kích thước của struct
+Kích thước của một struct được tính bằng tổng kích thước của tất cả các thành viên cộng thêm bộ nhớ lấp đầy (nếu có). Mỗi thành viên của struct sẽ có vùng nhớ riêng biệt.
+
+
+```c
+
+#include <stdio.h>
+#include <stdint.h>
+
+typedef struct sizeofstruct
+{
+//1byte    
+uint8_t arr1[5]; 
+//4byte    
+uint32_t arr3[1];
+//2byte    
+uint16_t arr2[3];
+
+} frame;
+int main()
+{
+    printf("kich thuoc:%d",sizeof(frame));
+}
+```
+
+
+   	kich thuoc:20
+---
+
+
+![image](https://github.com/user-attachments/assets/1cc8268c-024b-4f73-a205-47dd68a75278)
+
+
+## Union là gì?
+Union cũng là một kiểu dữ liệu do người dùng tự định nghĩa, tương tự như struct. Tuy nhiên, các thành viên của union sử dụng chung một vùng nhớ và chỉ một thành viên có thể được lưu trữ tại một thời điểm.
+![image](https://github.com/user-attachments/assets/a5395718-0d51-4612-8d8b-0c87a36aa7d4)
+
+### Cú pháp:
+```c
+union union_name {
+    data_type member1;
+    data_type member2;
+    ...
+    data_type memberN;
+};
+```
+
+### Ví dụ:
+```c
+union employee {
+    int id;
+    char name[50];
+    float salary;
+};
+```
+
+## Mục đích của Union
+Union được sử dụng khi bạn cần lưu trữ và truy cập nhiều kiểu dữ liệu, nhưng chỉ cần sử dụng một thành viên tại một thời điểm, giúp tiết kiệm bộ nhớ.
+
+## Cách tính kích thước của Union
+Kích thước của một union bằng kích thước của thành viên lớn nhất, vì tất cả các thành viên dùng chung một vùng nhớ.
+
+```c
+
+#include <stdio.h>
+#include <stdint.h>
+typedef union sizeofunion
+{
+    uint8_t arr1; //1 byte
+    uint32_t arr3; // 4 byte
+    uint16_t arr2; //  2 byte
+    
+} frame;
+
+
+
+int main()
+{
+    frame data;
+    //data.arr1 = 5;
+    data.arr2 =65530;
+    //data.arr3 = 2;
+    printf("arr1: %d\n",data.arr1);
+    printf("arr1: %d\n",data.arr2);
+    printf("arr1: %d\n",data.arr3);
+    printf("%d",sizeof(frame));
+
+}
+```
+
+`
+arr1: 250
+arr1: 65530
+arr1: 65530
+4 `
+![image](https://github.com/user-attachments/assets/69a19bc5-1206-4b0e-98af-674bd3f549e4)
+
+### Ví dụ:
+```c
+#include <stdio.h>
+
+union data {
+    int int_val;
+    float float_val;
+    char char_val[20];
+};
+
+int main() {
+    union data d;
+    
+    d.int_val = 42;
+    printf("Int value: %d\n", d.int_val);
+    
+    d.float_val = 3.14;
+    printf("Float value: %.2f\n", d.float_val);  // Lúc này int_val bị ghi đè
+    
+    return 0;
+}
+```
+
+### Sự khác biệt giữa Struct và Union:
+- **Struct**: Các thành viên có vùng nhớ riêng, có thể truy cập đồng thời nhiều thành viên.
+- **Union**: Các thành viên dùng chung một vùng nhớ, chỉ một thành viên có thể được truy cập tại một thời điểm.
+
+---
+
+
+### Ứng dụng trong truyền dữ liệu trong Nhúng
+
+```c
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
+
+typedef union {
+    struct {
+        uint8_t id[2];
+        uint8_t data[4];
+        uint8_t check_sum[2];
+    } data;
+    uint8_t frame[8];
+} Data_Frame;
+
+int main(int argc, char const *argv[])
+{
+    Data_Frame transmitter_data;
+    
+    strcpy(transmitter_data.data.id, "10");
+    strcpy(transmitter_data.data.data, "1234");
+    strcpy(transmitter_data.data.check_sum, "70");
+        Data_Frame receiver_data;
+    strcpy(receiver_data.frame, transmitter_data.frame);
+    
+    
+    return 0;
+}
+```
+
+
+• Data_Frame là một union, cho phép truy cập dữ liệu theo hai cách:
+	• Qua data (một cấu trúc gồm các thành phần con id, data, và check_sum).
+	• Qua frame (một mảng uint8_t với 8 phần tử).
+• Lý do sử dụng union ở đây là để tiết kiệm bộ nhớ và dễ dàng truyền hoặc sao chép toàn bộ khung dữ liệu một cách đơn giản bằng cách truy cập frame.
+
+
+
+
