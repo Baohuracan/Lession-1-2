@@ -885,6 +885,7 @@ arr1: 250
 arr1: 65530
 arr1: 65530
 4 `
+
 ![image](https://github.com/user-attachments/assets/69a19bc5-1206-4b0e-98af-674bd3f549e4)
 
 ### Ví dụ:
