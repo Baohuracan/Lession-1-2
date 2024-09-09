@@ -956,5 +956,407 @@ int main(int argc, char const *argv[])
 • Lý do sử dụng union ở đây là để tiết kiệm bộ nhớ và dễ dàng truyền hoặc sao chép toàn bộ khung dữ liệu một cách đơn giản bằng cách truy cập frame.
 
 
+#  **Bài 8: Stack - Queue** 
+
+## Stack là gì ?
+Stack là cấu trúc dữ liệu tuyến tính tuân theo nguyên tắc Last in, First out (LIFO) về chèn và xóa dữ liệu.
+
+![image](https://github.com/user-attachments/assets/e4014af7-1752-41bf-9b73-35fa24b5cbb6)
+
+
+## Mục đích của Stack là gì? 
+
+Stack thường được dùng cho các tác vụ như :
+
+	- Đánh giá biểu thức (Expression Evaluation)
+	- Quản lý bộ nhớ và lời gọi hàm (Fuction call management)
+	- Thuật toán quay lui xử lý bởi đệ quy (Backtracking Algorithms) 
+	- Duyệt đồ thị/cây: Trong thuật toán duyệt theo chiều sâu (DFS), stack đóng vai trò lưu trữ các nút đang được xử lý.
+
+## Cách hoạt động của Stack?
+
+Phần tử được thêm vào cuối cùng sẽ là phần tử được lấy ra đầu tiên.
+
+Cấu trúc của Stack:
+
+![image](https://github.com/user-attachments/assets/cfa760d1-bece-4a68-8fc0-98b5b3684824)
+
+
+
+	- Stack có thể được triển khai bằng mảng (array) hoặc danh sách liên kết ( linked list )
+	- Các thao tác chính trên Stack là:
+		○ Push: Thêm phần tử vào đỉnh Stack
+		○ Pop: Lấy phần tử khỏi đỉnh Stack
+		○ Peek (Top): Xem phần tử trên đỉnh mà không xóa nó
+		○ IsEmpty: Kiểm tra xem stack có rỗng không
+		○ IsFull: Kiểm tra xem  stack có đầy không
+
+
+### Các hoạt động cơ bản của Stack trong C
+
+#### Push
+
+Hàm push sẽ thêm hoặc đẩy một phần tử vào ngăn xếp. Chúng ta phải kiểm tra xem ngăn xếp đã đầy chưa trước khi chèn một phần tử mới để tránh tràn ngăn xếp (stack overflow).
+
+** Algorithm of stack push**
+
+	1. Kiểm tra xem ngăn xếp đã đầy chưa
+	2. Nếu ngăn xếp đã đầy thì thông báo tràn
+	3. Nếu ngăn xếp chưa đầy thì tăng con trỏ trên cùng lên một đơn vị
+	4. Tiến hành thêm một phần tử mới vào vị trí con trỏ trỏ tới
+
+
+
+![image](https://github.com/user-attachments/assets/bc471509-9b64-4f16-aeac-432777b8d90e)
+
+
+
+#### Pop
+
+Khi thực hiện thao tác pop, phần tử trên đỉnh của stack sẽ bị lấy ra. Sau đó đỉnh của stack sẽ giảm xuống để trỏ đến phần tử kế tiếp.
+
+ Khi chúng ta muốn xóa phần tử trên cùng khi ngăn xếp đã rỗng thì đó gọi là tràn ngăn xếp hay là rỗng ngăn xếp (stack underflow).
+
+**Algorithms of stack pop**
+
+	1. Kiểm tra xem ngăn xếp có trống không
+	2. Nếu ngăn xếp trống thì hiển thị tràn bộ nhớ
+	3. Nếu ngăn xếp không rỗng thì xóa phần tử ở vị trí trên cùng
+	4. Giảm con trỏ trên cùng của ngăn xếp
+
+![image](https://github.com/user-attachments/assets/5f157cee-30a7-4903-93f0-ced3a31abfcc)
+
+
+Bạn không cần phải gán phần tử đã lấy ra thành null trong C. Khi sử dụng ngăn xếp, chỉ số top chính là công cụ để quản lý việc thêm/xóa phần tử.
+
+ Sau khi phần tử được "lấy ra", top sẽ giảm, và những phần tử nằm sau top sẽ không còn được coi là hợp lệ trong ngăn xếp nữa.
+
+#### Top (Peek)
+
+Hàm top này sẽ trả về phần tử hiện đang nằm trên cùng của ngăn xếp mà không xóa nó.
+
+**Algorithms for stack top function**
+
+	1. Kiểm tra xem có trống không.
+	2. Nếu trống, trả về -1.
+	3. Nếu không trống thì trả về phần tử stack.data[top].
+
+Việc sử dụng hàm peek() thay vì truy xuất trực tiếp phần tử trên đỉnh stack giúp:
+
+	• Đảm bảo an toàn cho chương trình.
+	• Giảm sự lặp lại mã nguồn.
+	• Giữ mã dễ đọc và bảo trì.
+	• Tạo tính linh hoạt và dễ mở rộng khi cần thêm chức năng.
+	
+Việc này cũng phù hợp với nguyên tắc lập trình tốt là viết mã an toàn và dễ bảo trì
+
+
+	
+#### IsFull function
+
+Hàm này cung cấp thông tin về việc ngăn xếp có còn chỗ trống không hay đã đầy hoàn toàn. 
+
+Dung lượng tối đa của ngăn xếp là MAX_SIZE phần tử. Vậy giá trị tối đa của top có thể là MAX_SIZE - 1.
+
+** Algorithms of stack IsFull**
+
+	1. Nếu top >= MAXSIZE - 1, trả về giá trị true.
+	2. Nếu không trả về false.
+
+
+#### IsEmpty
+
+Hàm này kiểm tra xem ngăn xếp có rỗng hay không. Khi ngăn xếp rỗng thì top = -1. 
+
+**Algorithms of Stack IsEmpty
+
+	1. Nếu con trỏ trên cùng == -1 trả về true 
+	2. Nếu không thì trả về false.
+
+#### Cách hoạt động cụ thể
+
+Giả sử ta có một stack có kích thước 5, và ta thực hiện các thao tác:
+
+	1. Push 10:
+		○ Stack sau khi thêm 10: [10]
+		○ Đỉnh của stack trỏ đến 10.
+	2. Push 20:
+		○ Stack sau khi thêm 20: [10, 20]
+		○ Đỉnh của stack giờ trỏ đến 20.
+	3. Push 30:
+		○ Stack sau khi thêm 30: [10, 20, 30]
+		○ Đỉnh của stack trỏ đến 30.
+	4. Pop:
+		○ Lấy phần tử trên đỉnh là 30, và đỉnh giảm xuống trỏ đến 20.
+		○ Stack sau khi lấy phần tử: [10, 20]
+	5. Peek:
+		○ Xem phần tử trên đỉnh hiện tại là 20, nhưng không xóa nó.
+	6. IsEmpty:
+		○ Kiểm tra stack có rỗng không. Stack hiện có phần tử, nên kết quả là "Không rỗng".
+
+
+---
+# **Queue trong C**
+
+## Queue là gì?
+
+Là một cấu trúc dữ liệu theo nguyên tắc FIFO (First In First Out). Phần tử được thêm vào đầu tiên sẽ lấy ra đầu tiên.
+
+## Mục đích của Queue là gì?
+
+	- Quản lý tài nguyên trong hệ thống
+	- Truyền thông giữa các tiến trình (Interprocess Communication)
+	- Sử dụng trong các hệ thống đệm I/O (Buffering I/O Systems)
+	- Tìm kiếm theo chiều rộng (Breadth-first-search)
+
+## Cách hoạt động của Queue 
+
+Chúng ta có thể triển khai Queue trong C bằng cách sử dụng mảng hoặc danh sách liên kết. Ở đây chúng ta sẽ sử dụng cấu trúc dữ liệu mảng để lưu trữ các phần tử.
+
+Việc chèn hàng đợi được thực hiện ở phía sau còn việc xóa được thực hiện ở phía trước. Vì vậy chúng ta duy trì 2 con trỏ chỉ mục rear để theo dõi phía sau và front để theo dõi phía trước hàng đợi.
+
+Queue gồm hai thao tác cơ bản đó là thêm các phần tử mới vào hàng đợi là enqueue (insertion) từ con trỏ rear và xóa phần tử khỏi hàng đợi là dequeue (deletetion) từ con trỏ front.
+
+![image](https://github.com/user-attachments/assets/9d03e227-1101-494b-9cab-c6cc29714340)
+
+
+### Biểu diễn Queue trong C
+
+Queue có thể được biểu diễn dưới một cấu trúc chứa một mảng cố định. Có con trỏ trỏ đến đầu và cuối.
+
+```C
+Struct Queue
+{
+	Int arr[MAX_SIZE];
+	Int front;
+	Int rear;
+
+}
+```
+
+• front luôn trỏ đến phần tử sắp bị lấy ra (nếu bạn thực hiện thao tác dequeue).
+
+Con trỏ phía trước (front pointer):
+	• Con trỏ front (phía trước) thường dùng để chỉ đến phần tử đầu tiên trong hàng đợi. Khi ta thực hiện thao tác dequeue, con trỏ này sẽ di chuyển đến phần tử kế tiếp, trỏ đến phần tử mà sẽ bị lấy ra trong lần dequeue tiếp theo.
+	• Giá trị khởi tạo của con trỏ front là -1, có nghĩa là hàng đợi đang trống, chưa có phần tử nào được thêm vào.
+
+
+• rear trỏ đến vị trí trống tiếp theo (nếu bạn thực hiện thao tác enqueue).
+
+. Con trỏ phía sau (rear pointer):
+	• Con trỏ rear (phía sau) dùng để chỉ đến vị trí cuối cùng trong hàng đợi. Khi ta thực hiện thao tác enqueue, con trỏ này sẽ di chuyển đến phần tử trống tiếp theo, nơi mà phần tử mới được thêm vào.
+	• Giá trị khởi tạo của con trỏ rear là -1 (tương tự như front), nghĩa là hàng đợi ban đầu trống.
+
+
+Ví dụ minh họa:
+
+Giả sử hàng đợi của bạn có kích thước tối đa là 5 và bạn thực hiện các thao tác trên hàng đợi:
+
+	1. Hàng đợi rỗng:
+
+makefile
+Copy code
+front = -1
+rear = -1
+[ - , - , - , - , - ]
+	2. Thêm phần tử đầu tiên (enqueue): Thêm 10 vào hàng đợi.
+
+makefile
+Copy code
+front = 0
+rear = 0
+[ 10 , - , - , - , - ]
+	3. Thêm phần tử thứ hai (enqueue): Thêm 20 vào hàng đợi.
+
+makefile
+Copy code
+front = 0
+rear = 1
+[ 10 , 20 , - , - , - ]
+	4. Lấy phần tử đầu tiên (dequeue): Lấy 10 ra khỏi hàng đợi.
+
+makefile
+Copy code
+front = 1
+rear = 1
+[ - , 20 , - , - , - ]
+	5. Thêm phần tử mới (enqueue): Thêm 30 vào hàng đợi.
+
+makefile
+Copy code
+front = 1
+rear = 2
+[ - , 20 , 30 , - , - ]
+
+
+### Cách thao tác chính với Queue
+
+Các hoạt động cơ bản của Queue:
+
+- Enqueue: Chèn một phần tử vào hàng đợi thông qua rear pointer.
+- Dequeue: Xóa một phần tử khỏi hàng đợi thông qua front pointer.
+- Peek/front: Trả về phần tử đầu tiên của hàng đợi.
+- isFull: Trả về true nếu hàng đợi đã đầy, nếu không trả về false.
+- isEmpty: Trả về true nếu hàng đợi trống, nếu không trả về false.
+- Size: trả về số lượng phần tử hiện tại đang trong hàng đợi.
+
+#### EnQueue
+
+Hàm này chèn một phần tử thông qua rear pointer. Phải kiểm tra xem hàng đợi đã đầy hay chưa  để tránh Queue overflow.
+
+**Algorithmes of Enqueue function**
+	1. Kiểm tra hàng đợi có đầy không.
+	2. Nếu hàng đợi đầy thì hiển thị thông báo tràn.
+	3. Nếu hàng đợi chưa đầy thì tăng giá trị của con trỏ rear
+	4. Thêm phần tử mới vào vị trí con trỏ rear trỏ tới.
+
+``` C
+void enqueue(struct Queue* q, int value) {
+    if (isFull(q)) {
+        printf("Hàng đợi đầy, không thể thêm phần tử.\n");
+    } else {
+        if (q->front == -1) {
+            q->front = 0;  // Đặt front cho phần tử đầu tiên
+        }
+        q->rear++;
+        q->items[q->rear] = value;
+        printf("Đã thêm %d vào hàng đợi.\n", value);
+    }
+}
+```
+
+#### Dequeue
+
+Hàm này xóa một phần tử khỏi phía trước hàng đợi thông qua con trỏ front. Chúng ta cần kiểm tra xem hàng đợi có trống không trước khi xóa phần tử để tránh queue underflow.
+
+
+**Algorithms of Dequeue function**
+
+	1. Kiểm tra xem hàng đợi có trống không
+	2. Nếu hàng đợi trống thì hiển thị thông báo rỗng hàng đợi
+	3. Nếu không thì tăng con trỏ đầu tiên của hàng đợi lên
+	4. Loại bỏ phần tử ở phía trước
+
+
+```C
+int dequeue(struct Queue* q) {
+    int item;
+    if (isEmpty(q)) {
+        printf("Hàng đợi rỗng, không thể lấy phần tử.\n");
+        return -1;
+    } else {
+        item = q->items[q->front];
+        if (q->front == q->rear) {
+            // Nếu chỉ còn một phần tử, đặt lại hàng đợi về trạng thái rỗng
+            q->front = -1;
+            q->rear = -1;
+        } else {
+            q->front++;
+        }
+        printf("Đã lấy %d khỏi hàng đợi.\n", item);
+        return item;
+    }
+}
+
+```
+
+
+#### Peek / front
+
+Hàm này trả về phần tử đầu tiên của hàng đợi, nếu rỗng nó trả về -1.
+
+**Algorithms of front  function**
+
+	1. Kiểm tra xem hàng đợi có trống không
+	2. Nếu trống thì trả về -1
+	3. Nếu không thì trả về queue.items[queue.front]
+
+```C
+int peek(struct Queue* q) {
+    if (isEmpty(q)) {
+        printf("Hàng đợi rỗng, không có phần tử để xem.\n");
+        return -1;
+    } else {
+        return q->items[q->front];
+    }
+}
+
+
+```
+#### isFull
+
+Hàm này sẽ kiểm tra xem hàng đợi có đầy hay không
+
+
+**Algorithms of isFull function**
+
+	1. Nếu rear == MAX_SIZE đúng thì trả về true
+	2. Nếu không thì trả về false
+
+```C
+#define MAX_SIZE 5
+
+struct Queue {
+    int items[MAX_SIZE];
+    int front;
+    int rear;
+};
+
+// Hàm isFull kiểm tra xem hàng đợi có đầy không
+int isFull(struct Queue* q) {
+    if (q->rear == MAX_SIZE - 1) {
+        return 1; // true - hàng đợi đầy
+    } else {
+        return 0; // false - hàng đợi chưa đầy
+    }
+}
+
+```
+
+
+#### isEmpty
+
+Hàm này sẽ kiểm tra xem hàng đợi có trống hay không.
+
+**Algorithms of isEmpty**
+
+	1. Nếu front == -1 thì trả về true
+	2. Nếu không thì trả về false
+
+```C
+int isEmpty(struct Queue* q) {
+    if (q->front == -1) {
+        return 1; // true - hàng đợi rỗng
+    } else {
+        return 0; // false - hàng đợi không rỗng
+    }
+}
+
+```
+
+#### size
+
+Hàm này sẽ trả về số lượng phần tử hiện tại trong queue
+
+** Algorethms of size function**
+	1. Nếu hàm isFull trả về true thì  trả về MAX_SIZE
+	2. Nếu hàm isEmpty trả về false thì trả về 0
+	3. Nếu không thì tính kích thước bằng cách: (rear - front) + 1
+
+```C
+int size(struct Queue* q) {
+    if (isEmpty(q)) {
+        return 0; // Hàng đợi rỗng
+    } else if (isFull)
+{
+Return 5;
+{ else {
+        return (q->rear - q->front) + 1;
+    }
+}
+
+```
+
+
 
 
