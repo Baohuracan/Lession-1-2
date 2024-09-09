@@ -1196,7 +1196,7 @@ Các hoạt động cơ bản của Queue:
 
 Hàm này chèn một phần tử thông qua rear pointer. Phải kiểm tra xem hàng đợi đã đầy hay chưa  để tránh Queue overflow.
 
-**Algorithmes of Enqueue function**
+** Algorithmes of Enqueue function **
 	1. Kiểm tra hàng đợi có đầy không.
 	2. Nếu hàng đợi đầy thì hiển thị thông báo tràn.
 	3. Nếu hàng đợi chưa đầy thì tăng giá trị của con trỏ rear
@@ -1222,7 +1222,7 @@ void enqueue(struct Queue* q, int value) {
 Hàm này xóa một phần tử khỏi phía trước hàng đợi thông qua con trỏ front. Chúng ta cần kiểm tra xem hàng đợi có trống không trước khi xóa phần tử để tránh queue underflow.
 
 
-**Algorithms of Dequeue function**
+**Algorithms of Dequeue function **
 
 	1. Kiểm tra xem hàng đợi có trống không
 	2. Nếu hàng đợi trống thì hiển thị thông báo rỗng hàng đợi
@@ -1257,7 +1257,7 @@ int dequeue(struct Queue* q) {
 
 Hàm này trả về phần tử đầu tiên của hàng đợi, nếu rỗng nó trả về -1.
 
-**Algorithms of front  function**
+**Algorithms of front  function **
 
 	1. Kiểm tra xem hàng đợi có trống không
 	2. Nếu trống thì trả về -1
@@ -1280,7 +1280,7 @@ int peek(struct Queue* q) {
 Hàm này sẽ kiểm tra xem hàng đợi có đầy hay không
 
 
-**Algorithms of isFull function**
+**Algorithms of isFull function **
 
 	1. Nếu rear == MAX_SIZE đúng thì trả về true
 	2. Nếu không thì trả về false
@@ -1310,7 +1310,7 @@ int isFull(struct Queue* q) {
 
 Hàm này sẽ kiểm tra xem hàng đợi có trống hay không.
 
-**Algorithms of isEmpty**
+**Algorithms of isEmpty **
 
 	1. Nếu front == -1 thì trả về true
 	2. Nếu không thì trả về false
@@ -1330,7 +1330,7 @@ int isEmpty(struct Queue* q) {
 
 Hàm này sẽ trả về số lượng phần tử hiện tại trong queue
 
-** Algorethms of size function**
+** Algorethms of size function **
 
 	1. Nếu hàm isFull trả về true thì  trả về MAX_SIZE
 	2. Nếu hàm isEmpty trả về false thì trả về 0
