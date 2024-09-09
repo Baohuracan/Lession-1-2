@@ -1331,6 +1331,7 @@ int isEmpty(struct Queue* q) {
 Hàm này sẽ trả về số lượng phần tử hiện tại trong queue
 
 ** Algorethms of size function**
+
 	1. Nếu hàm isFull trả về true thì  trả về MAX_SIZE
 	2. Nếu hàm isEmpty trả về false thì trả về 0
 	3. Nếu không thì tính kích thước bằng cách: (rear - front) + 1
