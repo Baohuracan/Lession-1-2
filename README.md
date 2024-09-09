@@ -1154,39 +1154,31 @@ Giả sử hàng đợi của bạn có kích thước tối đa là 5 và bạn
 
 	1. Hàng đợi rỗng:
 
-makefile
-Copy code
-front = -1
-rear = -1
-[ - , - , - , - , - ]
+
+	front = -1
+	rear = -1
+	[ - , - , - , - , - ]
 	2. Thêm phần tử đầu tiên (enqueue): Thêm 10 vào hàng đợi.
 
-makefile
-Copy code
-front = 0
-rear = 0
-[ 10 , - , - , - , - ]
+	front = 0
+	rear = 0
+	[ 10 , - , - , - , - ]
 	3. Thêm phần tử thứ hai (enqueue): Thêm 20 vào hàng đợi.
 
-makefile
-Copy code
-front = 0
-rear = 1
-[ 10 , 20 , - , - , - ]
+
+	front = 0
+	rear = 1
+	[ 10 , 20 , - , - , - ]
 	4. Lấy phần tử đầu tiên (dequeue): Lấy 10 ra khỏi hàng đợi.
 
-makefile
-Copy code
-front = 1
-rear = 1
-[ - , 20 , - , - , - ]
+	front = 1
+	rear = 1
+	[ - , 20 , - , - , - ]
 	5. Thêm phần tử mới (enqueue): Thêm 30 vào hàng đợi.
 
-makefile
-Copy code
-front = 1
-rear = 2
-[ - , 20 , 30 , - , - ]
+	front = 1
+	rear = 2
+	[ - , 20 , 30 , - , - ]
 
 
 ### Cách thao tác chính với Queue
