@@ -1197,10 +1197,11 @@ Các hoạt động cơ bản của Queue:
 Hàm này chèn một phần tử thông qua rear pointer. Phải kiểm tra xem hàng đợi đã đầy hay chưa  để tránh Queue overflow.
 
 **Algorithmes of Enqueue function**
-	1. Kiểm tra hàng đợi có đầy không.
-	2. Nếu hàng đợi đầy thì hiển thị thông báo tràn.
-	3. Nếu hàng đợi chưa đầy thì tăng giá trị của con trỏ rear
-	4. Thêm phần tử mới vào vị trí con trỏ rear trỏ tới.
+
+1. Kiểm tra hàng đợi có đầy không.
+2. Nếu hàng đợi đầy thì hiển thị thông báo tràn.
+3. Nếu hàng đợi chưa đầy thì tăng giá trị của con trỏ rear
+4. Thêm phần tử mới vào vị trí con trỏ rear trỏ tới.
 
 ``` C
 void enqueue(struct Queue* q, int value) {
