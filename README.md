@@ -1383,11 +1383,31 @@ Memory layout của một chương trình C gồm 5 phần chính: **Text Segmen
 	- Text Segment ở vùng nhớ của địa chỉ thấp nhất.
 	- Đây là phần chứa các đoạn mã lệnh của chương trình.
 
+Quyền Truy Cập:
+
+Đọc và Thực Thi: Text Segment thường có quyền đọc và thực thi để chương trình có thể thực hiện mã máy chứa trong đó.
+
+Không Có Quyền Ghi: Để bảo vệ mã máy khỏi việc bị thay đổi bởi chính chương trình, Text Segment không có quyền ghi. Điều này giúp ngăn chặn các cuộc tấn công như code injection, nơi mà một chương trình có thể bị lợi dụng để thay đổi mã máy của chính nó.
+
+Kích Thước Cố Định:
+
+Kích Thước Cố Định Khi Biên Dịch: Kích thước của Text Segment được xác định trong quá trình biên dịch và thường không thay đổi trong suốt thời gian thực thi.
+
+Điều này có nghĩa là khi chương trình được biên dịch, kích thước của Text Segment được thiết lập và không được thay đổi sau đó, giúp duy trì tính toàn vẹn của mã máy.
+
+
 ## Data Segment
 
 	- Sử dụng lưu trữ dữ liệu tĩnh của chương trình
 	- Dữ liệu tĩnh gồm biến toàn cục và biến tĩnh
 	- Nó không phụ thuộc vào thời gian chạy của chương trình
+
+ Quyền Truy Cập:
+
+Đọc và Ghi: Data Segment thường có quyền đọc và ghi, cho phép chương trình đọc từ và ghi vào các biến toàn cục hoặc tĩnh trong suốt quá trình thực thi. Điều này là cần thiết vì dữ liệu cần được thay đổi trong quá trình thực hiện của chương trình.
+Kích Thước Cố Định:
+
+Có Thể Thay Đổi: Kích thước của Data Segment không hoàn toàn cố định như Text Segment. Nó có thể thay đổi khi chương trình đang thực thi, do việc cấp phát hoặc giải phóng bộ nhớ cho các biến toàn cục hoặc tĩnh. Ví dụ, nếu chương trình cấp phát bộ nhớ động cho các biến hoặc cấu trúc dữ liệu, kích thước của Data Segment có thể thay đổi.
 
 Biến toàn cục hoặc biến tĩnh được khởi tạo = 0: Được xếp vào BSS segment.
 
@@ -1421,6 +1441,83 @@ Phân đoạn dữ liệu được chia làm hai phần:
 
 	- Trong C/C++, lập trình viên hoàn toàn có thể kiểm soát quá trình cấp phát và giải phóng bộ nhớ
 	- Sử dụng để cấp phát bộ nhớ động
+
+ Quyền Truy Cập:
+
+Đọc và Ghi: Bộ nhớ trên heap có quyền đọc và ghi, cho phép dữ liệu trong heap có thể được đọc và thay đổi trong suốt thời gian chương trình chạy. Điều này là cần thiết cho các cấu trúc dữ liệu động mà chương trình có thể cần.
+Kích Thước Thay Đổi:
+
+Có Thể Thay Đổi: Kích thước của heap có thể thay đổi trong quá trình thực thi của chương trình. Khi chương trình cấp phát hoặc giải phóng bộ nhớ động (như khi sử dụng malloc, calloc, realloc, và free trong C), kích thước của heap thay đổi để phản ánh các thao tác này.
+
+Hàm malloc
+Chức Năng: Cấp phát bộ nhớ động.
+
+Cú pháp: `ptr = (cast_type*)malloc(byte_size);`
+
+- ptr: Con trỏ lưu trữ địa chỉ của vùng nhớ được cấp phát.
+- cast_type*: Kiểu con trỏ mà bạn muốn ép kiểu (ví dụ: int*, char*).
+- byte_size: Kích thước bộ nhớ cần cấp phát, tính theo byte.
+
+ Giá Trị Trả Về:
+
+- Con trỏ kiểu void*, thường cần phải ép kiểu sang kiểu phù hợp với nhu cầu sử dụng.
+- Nếu không thể cấp phát bộ nhớ (do thiếu tài nguyên), hàm trả về NULL.
+
+Lưu Ý:
+
+- Bộ nhớ được cấp phát bởi malloc chứa các giá trị không xác định (rác). Bạn cần khởi tạo các giá trị này trước khi sử dụng.
+- Luôn kiểm tra con trỏ trả về để đảm bảo rằng việc cấp phát bộ nhớ thành công trước khi sử dụng.
+
+Hàm calloc
+
+Chức Năng: Cấp phát bộ nhớ động và khởi tạo toàn bộ bộ nhớ đó với giá trị 0.
+
+Cú pháp: `ptr = (cast_type*)calloc(n, element_size);`
+
+- ptr: Con trỏ lưu trữ địa chỉ của vùng nhớ được cấp phát.
+- cast_type*: Kiểu con trỏ mà bạn muốn ép kiểu (ví dụ: int*, char*).
+- n: Số lượng phần tử cần cấp phát.
+- element_size: Kích thước của mỗi phần tử, tính theo byte.
+
+Giá Trị Trả Về:
+
+- Con trỏ kiểu void*, tương tự như malloc. Bạn thường cần ép kiểu con trỏ để sử dụng.
+- Nếu việc cấp phát không thành công (do thiếu tài nguyên), hàm trả về NULL.
+
+Lưu Ý:
+
+- Bộ nhớ cấp phát bằng calloc được khởi tạo với giá trị 0, giúp tránh việc sử dụng giá trị không xác định.
+- Kiểm tra con trỏ trả về để đảm bảo rằng việc cấp phát thành công trước khi sử dụng.
+
+Hàm realloc
+
+Chức Năng: Thay đổi kích thước của một khối bộ nhớ đã được cấp phát trước đó, giữ lại giá trị cũ và bổ sung thêm bộ nhớ mới nếu cần.
+
+Cú pháp: `ptr = (cast_type*)realloc(ptr, new_size);`
+
+- ptr: Con trỏ đến khối bộ nhớ hiện tại mà bạn muốn thay đổi kích thước.
+- cast_type*: Kiểu con trỏ mà bạn muốn ép kiểu (ví dụ: int*, char*).
+- new_size: Kích thước mới của khối bộ nhớ, tính theo byte.
+
+Cách Hoạt Động:
+
+- Kích Thước Tăng: Nếu kích thước mới lớn hơn kích thước cũ, realloc sẽ cấp phát thêm bộ nhớ. Các giá trị trong vùng nhớ mới bổ sung sẽ không xác định (rác).
+- Kích Thước Giảm: Nếu kích thước mới nhỏ hơn kích thước cũ, realloc sẽ giữ lại phần bộ nhớ cần thiết và giải phóng phần còn lại.
+- Thay Đổi Địa Chỉ: Nếu không đủ bộ nhớ liên tiếp để mở rộng, realloc có thể cấp phát một khối bộ nhớ mới ở địa chỉ khác và sao chép dữ liệu cũ vào khối mới. Con trỏ ptr sẽ trỏ đến địa chỉ bộ nhớ mới.
+
+- Kích Thước Bằng 0 (new_size == 0):
+
+Giải Phóng Bộ Nhớ: Nếu new_size bằng 0, realloc sẽ tương đương với free. Bộ nhớ cũ sẽ được giải phóng và hàm sẽ trả về NULL.
+
+Giá Trị Trả Về:
+
+- Con trỏ kiểu void*, thường cần ép kiểu con trỏ để sử dụng.
+- Nếu không thể cấp phát bộ nhớ (do thiếu tài nguyên), hàm trả về NULL và vùng nhớ cũ vẫn còn nguyên.
+
+Lưu Ý:
+
+- Luôn kiểm tra con trỏ trả về để đảm bảo rằng việc cấp phát thành công trước khi sử dụng.
+- Nếu realloc không thành công, vùng nhớ cũ vẫn còn nguyên và bạn phải giải phóng nó nếu không còn sử dụng nữa.
 
 Heap là vùng nhớ để cấp phát bộ nhớ động (dynamic memory allocation). 
 
@@ -1541,6 +1638,21 @@ Khi hàm `func(a)` được gọi từ `main()`, một stack frame mới sẽ đ
 4. **Tiếp tục thực thi:** Chương trình sẽ tiếp tục thực thi từ địa chỉ trả về trong `main()` và tiếp tục với các lệnh còn lại trong hàm `main()`.
 
 Điều này đảm bảo rằng sau khi một hàm hoàn tất, chương trình có thể quay lại đúng điểm thực thi và tiếp tục chạy một cách chính xác.
+
+### So sánh Stack với Heap:
+
+Stack:
+
+- Cấp phát tự động.
+- Hoạt động theo cơ chế LIFO.
+- Bộ nhớ giới hạn (thường nhỏ hơn heap).
+- Dùng cho các biến cục bộ và tham số hàm.
+- Tự động giải phóng khi hàm kết thúc.
+Heap:
+
+- Cấp phát thủ công (sử dụng malloc, free, new, delete).
+- Không có cấu trúc LIFO, có thể cấp phát và giải phóng tùy ý.
+- Dùng cho các biến có vòng đời lớn, tồn tại lâu hơn trong chương trình.
 
 ## Memory-Mapped Segment
 
