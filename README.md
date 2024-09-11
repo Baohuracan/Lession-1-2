@@ -1562,6 +1562,49 @@ Memory-mapped segment bao gồm 5 thành phần chính:
   - **Tiết kiệm bộ nhớ**: Các tệp tin hoặc thiết bị chỉ chiếm không gian bộ nhớ khi cần thiết, tránh việc tải toàn bộ nội dung vào RAM.
   - **Đồng bộ hóa tự động**: Các thay đổi trong bộ nhớ sẽ tự động được ghi lại vào tệp mà không cần thực hiện lệnh ghi riêng biệt.
 
+### Con trỏ lưu vào phân vùng nào?
+
+Con trỏ trong C có thể được lưu trữ ở các phân vùng khác nhau tùy thuộc vào cách và vị trí bạn khai báo nó. Dưới đây là các trường hợp phổ biến:
+
+### 1. **Con trỏ là biến cục bộ (Local Pointer)**
+   - **Phân vùng lưu trữ**: **Stack**
+   - Khi bạn khai báo một con trỏ như một biến cục bộ trong một hàm, con trỏ đó sẽ được lưu trong **stack**. Stack là nơi lưu trữ các biến cục bộ của hàm, bao gồm cả các con trỏ.
+
+   Ví dụ:
+   ```c
+   void func() {
+       int *ptr; // Con trỏ 'ptr' được lưu trong Stack
+   }
+   ```
+
+### 2. **Con trỏ là biến toàn cục hoặc static (Global/Static Pointer)**
+   - **Phân vùng lưu trữ**: **Data Segment (hoặc BSS segment nếu khởi tạo = 0)**
+   - Nếu con trỏ là một biến toàn cục hoặc khai báo với từ khóa `static`, nó sẽ được lưu trong phân đoạn dữ liệu (**Data Segment**) nếu được khởi tạo khác `0`. Nếu không khởi tạo hoặc khởi tạo bằng `0`, nó sẽ nằm trong **BSS segment**.
+
+   Ví dụ:
+   ```c
+   int *global_ptr;   // Lưu trong BSS (vì khởi tạo mặc định là 0)
+   static int *s_ptr; // Lưu trong BSS (nếu không khởi tạo)
+
+   int *global_ptr2 = (int *)0x1234; // Lưu trong Data Segment (khởi tạo khác 0)
+   ```
+
+### 3. **Con trỏ cấp phát động (Dynamic Pointer)**
+   - **Phân vùng lưu trữ**: **Heap**
+   - Khi bạn sử dụng hàm cấp phát bộ nhớ động như `malloc()`, `calloc()`, hoặc `realloc()`, vùng nhớ mà con trỏ trỏ tới sẽ nằm trong **heap**. Tuy nhiên, **con trỏ** vẫn được lưu trong **stack** nếu nó là biến cục bộ.
+
+   Ví dụ:
+   ```c
+   void func() {
+       int *ptr = (int *)malloc(sizeof(int));  // Vùng nhớ mà 'ptr' trỏ tới nằm trong Heap
+   }
+   ```
+
+### Tóm tắt:
+- **Con trỏ cục bộ** (trong hàm) được lưu trong **Stack**.
+- **Con trỏ toàn cục** hoặc **static** được lưu trong **Data Segment** (hoặc **BSS** nếu khởi tạo bằng `0`).
+- **Vùng nhớ mà con trỏ trỏ tới** (khi cấp phát động) được lưu trong **Heap**.
+
 ### Ứng dụng
 1. **Memory-mapped I/O**: Ánh xạ các thiết bị ngoại vi vào bộ nhớ để giao tiếp với thiết bị đó.
 2. **Chia sẻ bộ nhớ**: Các tiến trình khác nhau có thể chia sẻ cùng một tệp được ánh xạ vào bộ nhớ, giúp giao tiếp nhanh hơn và đồng bộ hơn.
