@@ -1351,6 +1351,217 @@ Return 5;
 
 ```
 
+# **Bài 9: Memory Layout**
+
+![image](https://github.com/user-attachments/assets/5c2895e6-43b7-47e6-ac84-ede4c48dcafd)
+
+Khi một chương trình C/C++ được biên dịch và thực thi, chương trình sẽ trải qua nhiều bước khác nhau trước khi được tải vào bộ nhớ và chạy.
+
+Các bước đó là:
+
+	1. Preprocessing (Tiền xử lý): Xử lý các chỉ thị tiền xử lý và tạo ra mã nguồn đã mở rộng.
+	2. Compilation (Biên dịch): Chuyển mã nguồn thành mã máy trung gian.
+	3. Assembly (Hợp dịch): Chuyển mã trung gian thành mã máy cho hệ thống.
+	4. Linking (Liên kết): Kết hợp mã đối tượng từ nhiều tệp và các thư viện, tạo ra tệp thực thi.
+	5. Cuối cùng chúng ta run file program, chính là load chương trình vào Memory và excute. 
+
+![image](https://github.com/user-attachments/assets/5315baf8-8717-48b0-9933-6a104321b958)
+
+
+
+Bộ nhớ của chương trình C được phân ra các phân vùng có quy tắc và mục đích sử dụng khác nhau.
+
+Memory layout của một chương trình C gồm 5 phần chính: **Text Segment, Ininitialized Data Segment, Uninitialized Data Segment, Heap, Stack.**
+
+![image](https://github.com/user-attachments/assets/1560ec7c-a1a5-4063-b0cf-27772583e87b)
+
+
+## Text Segment
+
+	- Sử dụng để lưu trữ mã máy của chương trình.
+	- Text Segment ở vùng nhớ của địa chỉ thấp nhất.
+	- Đây là phần chứa các đoạn mã lệnh của chương trình.
+
+## Data Segment
+
+	- Sử dụng lưu trữ dữ liệu tĩnh của chương trình
+	- Dữ liệu tĩnh gồm biến toàn cục và biến tĩnh
+	- Nó không phụ thuộc vào thời gian chạy của chương trình
+
+Phân đoạn dữ liệu được chia làm hai phần:
+
+1. Initialized Data Segment  là nơi lưu trữ các biến toàn cục (global variables) và các biến tĩnh ( static variables) đã được khởi tạo bởi programmer với giá trị khác 0.
+
+		int global = 100;
+		int foo() {
+		    static int number = 10;
+		    return 0;
+		}
+
+Ở ví dụ này hai biến global và number đã được khởi tạo nên nó được lưu ở Ininitialized Data Segment.
+	
+2. Uninitialized Data Segment (BSS): Là nơi lưu trữ các biến toàn cục (global variables) và các biến tĩnh (stactic variables) chưa được khởi tạo hay khởi tạo với giá trị bằng 0.
+
+
+		int global;
+		int foo() {
+		    static int number = 0;
+		    return 0;
+		}
+		
+Ở ví dụ này biến global chưa được khởi tạo và biến number có giá trị bằng 0 nên nó được lưu ở Uninitialized Data Segment.
+## Heap
+
+
+
+	- Trong C/C++, lập trình viên hoàn toàn có thể kiểm soát quá trình cấp phát và giải phóng bộ nhớ
+	- Sử dụng để cấp phát bộ nhớ động
+
+Heap là vùng nhớ để cấp phát bộ nhớ động (dynamic memory allocation). 
+
+Khi cần cấp phát bộ nhớ tại thời điểm chạy chương trình (run time). Chúng ta sử dụng các hàm như  malloc(), calloc(), realloc() trong C hoặc new(), delete() trong C++.
+
+ ### Heap phình lên (grows upward)
+
+Điều này có nghĩa là mỗi khi bạn cấp phát thêm bộ nhớ thì vùng heap sẽ mở rộng thêm kích thước của nó trong bộ nhớ RAM. 
+
+Bộ nhớ được cấp phát từ Heap sẽ tồn tại cho đến khi bạn chủ động giải phóng nó.
+
+Sau khi sử dụng xong bạn có thể giải phóng bằng hàm free() trong C hoặc delete() trong C++.
+
+Nếu không được giải phóng, vùng nhớ này vẫn tồn tại nhưng không được sử dụng dẫn đến hiện tượng rò rỉ bộ nhớ Memory Leak.
+
+Tức là bộ nhớ không được trả lại cho hệ thống mà còn làm chương trình không có đủ bộ nhớ cho các thao tác khác
+
+	```c
+	#include <stdio.h>
+	#include <stdlib.h>
+	int main() {
+	    int *arr = (int*)malloc(10 * sizeof(int));  // Cấp phát bộ nhớ cho mảng 10 phần tử
+	    if (arr == NULL) {
+	        printf("Memory allocation failed!\n");
+	        return 1;
+	    }
+	    // Gán giá trị cho mảng bằng cách sử dụng vòng lặp
+	    int values[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	    for (int i = 0; i < 10; i++) {
+	        arr[i] = values[i];
+	    }
+	    // In các giá trị của mảng để kiểm tra
+	    for (int i = 0; i < 10; i++) {
+	        printf("%d ", arr[i]);
+	    }
+	    printf("\n");
+	    free(arr);  // Giải phóng vùng nhớ sau khi sử dụng
+	    return 0;
+	}```
+
+
+## Stack
+
+- Stack là vùng nhớ được sử dụng để lưu trữ các biến cục bộ, các giá trị trả về từ hàm, và địa chỉ trả về. Nó hoạt động theo nguyên tắc **LIFO** (Last In, First Out).
+  
+Khi hàm `main()` được gọi, một **stack frame** sẽ được tạo và đẩy vào stack. Khi hàm `foo()` được gọi từ `main()`, stack frame của `foo()` sẽ được đẩy tiếp vào stack. Sau khi một hàm kết thúc, stack frame tương ứng sẽ bị loại bỏ.
+
+### Quá trình gọi hàm và quản lý stack frame
+
+1. **main() function**
+   - Khi `main()` được thực thi, một stack frame sẽ được tạo ra cho nó:
+     - **Function parameters**: `argc` và `argv[]` là các tham số truyền vào `main()`.
+     - **Return address**: Địa chỉ mà chương trình sẽ quay lại sau khi `main()` kết thúc.
+     - **Saved previous frame pointer**: Con trỏ trỏ về khung stack trước đó (nếu có).
+     - **Local variables**: Các biến cục bộ trong `main()`, như `a`, `b`, và `p`.
+
+2. **foo() function**
+   - Khi `main()` gọi `foo(a, b)`, một stack frame mới sẽ được đẩy vào stack cho `foo()`:
+     - **Function parameters**: Tham số `a` và `b` được truyền vào cho `foo()`.
+     - **Return address**: Địa chỉ mà chương trình sẽ quay lại trong `main()` sau khi `foo()` kết thúc.
+     - **Saved previous frame pointer**: Con trỏ này trỏ về khung stack của `main()`.
+     - **Local variables**: Biến cục bộ `c` trong hàm `foo()` được lưu trong phần này.
+
+### Quá trình phát triển của Stack
+
+- Khi `foo()` được gọi, stack sẽ phát triển từ trên xuống, và stack frame của `foo()` sẽ được đẩy vào sau frame của `main()`.
+- Khi `foo()` hoàn tất, stack frame của nó sẽ bị **pop** khỏi stack, và chương trình quay trở lại thực thi hàm `main()` từ chỗ gọi `foo()`.
+
+### Kết thúc hàm foo()
+
+Khi hàm `foo()` thực thi xong, các bước sau diễn ra:
+1. Trả về giá trị của hàm cho hàm `main()` (ví dụ: giá trị tính từ biểu thức `c + a * b` trong `foo()`).
+2. Stack frame của hàm `foo()` sẽ bị hủy, và **frame pointer** sẽ được khôi phục về vị trí của `main()` thông qua **Saved Frame Pointer (SFP)** đã lưu từ trước.
+3. Chương trình tiếp tục thực thi từ chỗ gọi hàm `foo()` trong `main()`, gán giá trị trả về của `foo()` vào biến `p`. Sau đó, chương trình tiếp tục các lệnh khác trong `main()`.
+
+
+### Cấu trúc của một Stack Frame (Function Frame)
+
+Một stack frame thường chứa các phần sau:
+
+1. **Return Address**: Địa chỉ của câu lệnh tiếp theo mà chương trình sẽ tiếp tục thực thi sau khi hàm kết thúc. Khi hàm hoàn tất, chương trình sẽ quay lại thực thi từ địa chỉ này.
+
+2. **Arguments**: Các tham số mà hàm nhận được. Khi một hàm được gọi với các tham số, chúng được lưu trữ trong stack frame.
+
+3. **Local Variables**: Các biến cục bộ được khai báo trong hàm. Những biến này được cấp phát bộ nhớ trong stack frame và sẽ tự động được giải phóng khi hàm kết thúc.
+
+4. **Saved Frame Pointer (SFP)**: Con trỏ khung (frame pointer) lưu lại trạng thái của khung hàm trước đó. Nó giúp chương trình có thể quay lại khung hàm gọi trước đó sau khi hàm hiện tại kết thúc.
+
+### Ví dụ: Cấu trúc Stack Frame trong C
+
+```c
+void func(int x) {
+    int y = x + 1;  // Biến cục bộ
+    // Code của hàm
+}
+
+int main() {
+    int a = 10;
+    func(a);  // Gọi hàm func
+    return 0;
+}
+```
+
+Khi hàm `func(a)` được gọi từ `main()`, một stack frame mới sẽ được tạo ra cho hàm `func`, bao gồm:
+
+- **Return Address**: Địa chỉ của câu lệnh tiếp theo trong hàm `main()` sau khi `func()` hoàn tất.
+- **Arguments**: Giá trị của `x`, trong trường hợp này là `a = 10`.
+- **Local Variables**: Biến cục bộ `y` trong hàm `func()`, với giá trị `y = x + 1 = 11`.
+
+### Hoạt động của Saved Frame Pointer (SFP)
+
+1. **Trước khi gọi `func()`:** Khi `main()` gọi `func()`, Frame Pointer (thanh ghi FP, thường là `ebp` trên hệ thống x86) hiện tại của `main()` sẽ được lưu vào stack. Giá trị này sẽ được sử dụng làm Saved Frame Pointer (SFP) để đánh dấu đáy của stack frame cũ (khung của `main()`).
+
+2. **Trong hàm `func()`:** Khi `func()` được gọi, Frame Pointer sẽ được cập nhật để đánh dấu đáy của stack frame mới của `func()`. Stack frame mới chứa địa chỉ trả về, tham số `x`, và biến cục bộ `y`.
+
+3. **Khi `func()` kết thúc:** Khi hàm `func()` hoàn tất, stack frame của `func()` sẽ bị xóa khỏi stack. Saved Frame Pointer (SFP) sẽ được sử dụng để khôi phục Frame Pointer của `main()`, giúp stack trở về trạng thái như trước khi `func()` được gọi.
+
+4. **Tiếp tục thực thi:** Chương trình sẽ tiếp tục thực thi từ địa chỉ trả về trong `main()` và tiếp tục với các lệnh còn lại trong hàm `main()`.
+
+Điều này đảm bảo rằng sau khi một hàm hoàn tất, chương trình có thể quay lại đúng điểm thực thi và tiếp tục chạy một cách chính xác.
+
+## Memory-Mapped Segment
+
+### Khái niệm
+Memory-Mapped Segment (Phân đoạn ánh xạ bộ nhớ) là một vùng trong bộ nhớ mà nội dung của nó được ánh xạ trực tiếp từ các tệp tin hoặc thiết bị ngoại vi vào không gian địa chỉ của tiến trình. Điều này cho phép chương trình thao tác trực tiếp trên bộ nhớ mà không cần phải sử dụng các lệnh I/O truyền thống để đọc hoặc ghi dữ liệu.
+
+### Các thành phần chính
+Memory-mapped segment bao gồm 5 thành phần chính:
+1. **Text Segment**: Chứa mã lệnh (code) của chương trình.
+2. **Data Segment**: Chứa dữ liệu toàn cục và dữ liệu tĩnh.
+3. **Heap**: Dùng để cấp phát động (dynamic memory allocation).
+4. **Stack**: Dùng để lưu trữ các biến cục bộ và quản lý lời gọi hàm.
+5. **Memory-Mapped Files**: Tệp tin hoặc thiết bị được ánh xạ trực tiếp vào bộ nhớ.
+
+### Memory-Mapped Files
+- **Định nghĩa**: Là kỹ thuật ánh xạ các tệp tin vào bộ nhớ. Thay vì thực hiện các thao tác đọc và ghi thông qua các lệnh I/O, chương trình có thể truy cập và sửa đổi nội dung của tệp tin như thao tác trên bộ nhớ RAM.
+- **Lợi ích**:
+  - **Hiệu suất cao**: Thao tác trực tiếp trên bộ nhớ nhanh hơn nhiều so với việc thực hiện qua các lệnh I/O.
+  - **Tiết kiệm bộ nhớ**: Các tệp tin hoặc thiết bị chỉ chiếm không gian bộ nhớ khi cần thiết, tránh việc tải toàn bộ nội dung vào RAM.
+  - **Đồng bộ hóa tự động**: Các thay đổi trong bộ nhớ sẽ tự động được ghi lại vào tệp mà không cần thực hiện lệnh ghi riêng biệt.
+
+### Ứng dụng
+1. **Memory-mapped I/O**: Ánh xạ các thiết bị ngoại vi vào bộ nhớ để giao tiếp với thiết bị đó.
+2. **Chia sẻ bộ nhớ**: Các tiến trình khác nhau có thể chia sẻ cùng một tệp được ánh xạ vào bộ nhớ, giúp giao tiếp nhanh hơn và đồng bộ hơn.
+3. **Làm việc với tệp lớn**: Memory-mapped giúp chương trình có thể làm việc với các tệp tin rất lớn mà không cần phải tải toàn bộ tệp vào bộ nhớ.
+
 
 
 
