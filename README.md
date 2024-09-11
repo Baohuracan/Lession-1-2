@@ -1376,6 +1376,7 @@ Memory layout của một chương trình C gồm 5 phần chính: **Text Segmen
 ![image](https://github.com/user-attachments/assets/1560ec7c-a1a5-4063-b0cf-27772583e87b)
 
 
+
 ## Text Segment
 
 	- Sử dụng để lưu trữ mã máy của chương trình.
@@ -1387,6 +1388,10 @@ Memory layout của một chương trình C gồm 5 phần chính: **Text Segmen
 	- Sử dụng lưu trữ dữ liệu tĩnh của chương trình
 	- Dữ liệu tĩnh gồm biến toàn cục và biến tĩnh
 	- Nó không phụ thuộc vào thời gian chạy của chương trình
+
+Biến toàn cục hoặc biến tĩnh được khởi tạo = 0: Được xếp vào BSS segment.
+
+Khi giá trị của biến thay đổi trong quá trình chạy: Biến vẫn nằm trong phân đoạn BSS, nhưng giá trị mới được lưu trữ tại vị trí bộ nhớ mà biến đã chiếm.
 
 Phân đoạn dữ liệu được chia làm hai phần:
 
